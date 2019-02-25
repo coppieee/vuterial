@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "outDir": "./dist/",
+    "outDir": "./dist/types/",
     "types": [
       "webpack-env",
       "mocha",
@@ -29,15 +29,17 @@
       "scripthost"
     ]
   },
+  "files":[
+    "src/components/index.ts"
+  ],
   "include": [
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue",
-    "tests/**/*.ts",
-    "tests/**/*.tsx"
+    "src/shims-vue.d.ts",
+    "src/components/**/*.ts",
+    "src/components/**/*.tsx",
+    "src/components/**/*.vue",
   ],
   "exclude": [
     "node_modules",
-    "lib"
+    "lib",
   ]
 }

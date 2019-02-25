@@ -4,6 +4,7 @@ import Button from './views/button.vue'
 import Card from './views/card.vue'
 import Chip from './views/chip.vue'
 import Home from './views/home.vue'
+import GettingStart from './views/getting-start.vue'
 import ImageList from './views/image-list.vue'
 import List from './views/list.vue'
 import Tab from './views/tab.vue'
@@ -11,7 +12,7 @@ import Typography from './views/typography.vue'
 import Ripple from './views/ripple.vue'
 Vue.use(Router)
 export const routeConfigs:RouteConfig[] = [
-  {Home},
+  {Home,GettingStart},
   {
     Button,Card,Chip,ImageList,List,Tab,Typography,Ripple,
   },
