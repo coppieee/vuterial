@@ -5,6 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build-bundle": "vue-cli-service build --target lib --name vuterial ./src/components/index.ts",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
     "precommit": "lint-staged"
