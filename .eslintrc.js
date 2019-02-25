@@ -1,12 +1,12 @@
 module.exports = {
   root: true,
   env: {
-    node: true
+    node: true,
   },
   'extends': [
     'plugin:vue/essential',
     'eslint:recommended',
-    '@vue/typescript'
+    '@vue/typescript',
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -14,9 +14,9 @@ module.exports = {
     quotes:['error','single'],
     indent: ['error', 2],
     semi: ['error', 'never'],
-    'comma-dangle': ["error", "always-multiline"],
+    'comma-dangle': ['error', 'always-multiline'],
   },
   parserOptions: {
-    parser: '@typescript-eslint/parser'
-  }
+    parser: '@typescript-eslint/parser',
+  },
 }

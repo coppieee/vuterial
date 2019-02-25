@@ -4,7 +4,7 @@
   </router-link>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator'
 export default class ActionItem extends Vue{
   @Prop({default:'header'})
   tag!:string

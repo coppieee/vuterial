@@ -1,5 +1,5 @@
 declare module '@material/tab-bar/foundation'{
-  import MDCFoundation from 'material__base/foundation';
+  import MDCFoundation from 'material__base/foundation'
   import MDCTabBarAdapter from '@material/tab-bar/adapter'
   export default class MDCTabBarFoundation extends MDCFoundation<MDCTabBarAdapter>  {
     /**
