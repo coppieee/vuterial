@@ -49,11 +49,10 @@
     "postcss-nesting": "^7.0.0",
     "sass-loader": "^7.1.0",
     "typescript": "~3.2.2",
-    "vue-template-compiler": "^2.5.21",
-    "yorkie": "^2.0.0"
+    "vue-template-compiler": "^2.5.21"
   },
   "husky": {
-    "hooks":{
+    "hooks": {
       "pre-commit": "lint-staged"
     }
   },
