@@ -1,4 +1,4 @@
-# vuerial
+# vuterial
 
 ## Project setup
 ```

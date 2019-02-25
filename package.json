@@ -1,5 +1,5 @@
 {
-  "name": "vuerial",
+  "name": "vuterial",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,13 +9,27 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "@material/card": "^0.44.1",
+    "@material/chips": "^0.44.1",
+    "@material/drawer": "^0.44.1",
+    "@material/icon-button": "^0.44.1",
+    "@material/list": "^0.44.1",
+    "@material/ripple": "^0.44.1",
+    "@material/tab-bar": "^0.44.1",
+    "@material/top-app-bar": "^0.44.1",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {
+    "@material/button": "^0.44.1",
+    "@material/image-list": "^0.44.1",
     "@types/chai": "^4.1.0",
+    "@types/material__chips": "^0.35.1",
+    "@types/material__drawer": "^0.43.1",
+    "@types/material__list": "^0.43.1",
+    "@types/material__top-app-bar": "^0.35.1",
     "@types/mocha": "^5.2.4",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
@@ -29,6 +43,7 @@
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.9.0",
+    "postcss-nesting": "^7.0.0",
     "sass-loader": "^7.1.0",
     "typescript": "~3.2.2",
     "vue-template-compiler": "^2.5.21"
