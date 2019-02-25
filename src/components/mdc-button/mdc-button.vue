@@ -36,7 +36,6 @@ export default class MdcList extends Vue{
   }
   @Emit() click(){
   }
-  // @Prop({default:true}) rippled!:boolean
   mdcRipple?:MDCRipple
   mounted(){
     if(this.ripple){
