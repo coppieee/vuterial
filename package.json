@@ -1,6 +1,6 @@
 {
   "name": "vuterial",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Vue Components  Material Components for the Web",
   "keywords": [
     "vue",
@@ -9,6 +9,8 @@
     "components",
     "mdc"
   ],
+  "main":"dist/vuterial.common.js",
+  "typings":"dist/types/index.d.ts",
   "bugs": {
     "url": "https://github.com/coppieee/vuterial/issues"
   },
