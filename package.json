@@ -1,6 +1,6 @@
 {
   "name": "vuterial",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Vue Components  Material Components for the Web",
   "keywords": [
     "vue",
@@ -27,7 +27,7 @@
     "url": "https://github.com/coppieee/vuterial.git"
   },
   "scripts": {
-    "build": "vue-cli-service build",
+    "build-docs": "vue-cli-service build --dest docs",
     "build-lib": "vue-cli-service build --target lib --name vuterial ./src/components/index.ts",
     "build-type": "tsc --emitDeclarationOnly --declaration -P tsconfig.types.json",
     "build-bundle": "run-s build-lib build-type",
