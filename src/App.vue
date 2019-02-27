@@ -7,9 +7,9 @@
           <mdc-top-app-bar-title>Vuterial</mdc-top-app-bar-title>
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align-end role="toolbar">
-          <mdc-top-app-bar-action-item to="/">flie_download</mdc-top-app-bar-action-item>
+          <!-- <mdc-top-app-bar-action-item to="/">flie_download</mdc-top-app-bar-action-item>
           <mdc-top-app-bar-action-item to="/">print</mdc-top-app-bar-action-item>
-          <mdc-top-app-bar-action-item to="/">bookmark</mdc-top-app-bar-action-item>
+          <mdc-top-app-bar-action-item to="/">bookmark</mdc-top-app-bar-action-item> -->
         </mdc-top-app-bar-section>
       </mdc-top-app-bar>
     </template>
@@ -19,7 +19,7 @@
           <mdc-list-item v-for="route in routes" :key="route.name"
             :to="route.path"
             auto-path-activated
-            icon="touch_app">
+            :icon="route.icon">
             {{route.name}}
           </mdc-list-item>
           <!-- <mdc-list-item to="/" auto-path-activated icon="inbox">home</mdc-list-item>
@@ -34,7 +34,9 @@
       </mdc-drawer>
     </template>
     <template #contents>
-      <router-view/>
+      <div class="demo-root-contents">
+        <router-view/>
+      </div>
     </template>
   </mdc-app>
 </template>
@@ -56,6 +58,9 @@ button{
   outline: none;
   padding: 0;
   appearance: none;
+}
+.demo-root-contents{
+  padding: 30px;
 }
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/drawer/mdc-drawer";

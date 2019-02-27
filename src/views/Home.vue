@@ -1,13 +1,17 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <div>
+      <p> VuterialはMaterial DesignするためのVue.js Componentsです。 </p>
+      <p>Material Components for the webをVue.js用に拡張してます。</p>
+      <p>現在ドキュメント作成中。</p>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
 
-@Component({
+@Component<Home>({
 })
 export default class Home extends Vue {}
 </script>
