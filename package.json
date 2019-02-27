@@ -2,6 +2,22 @@
   "name": "vuterial",
   "version": "0.1.6",
   "description": "Vue Components  Material Components for the Web",
+  "main": "dist/vuterial.common.js",
+  "typings": "dist/types/index.d.ts",
+  "unpkg": "./dist/vuterial.umd.min.js",
+  "jsdelivr": "./dist/vuterial.umd.min.js",
+  "files": [
+    "dist"
+  ],
+  "license": "MIT",
+  "author": "coppieee",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/coppieee/vuterial.git"
+  },
+  "bugs": {
+    "url": "https://github.com/coppieee/vuterial/issues"
+  },
   "keywords": [
     "vue",
     "vuejs",
@@ -10,22 +26,6 @@
     "mdc",
     "typescript"
   ],
-  "main": "dist/vuterial.common.js",
-  "typings": "dist/types/index.d.ts",
-  "bugs": {
-    "url": "https://github.com/coppieee/vuterial/issues"
-  },
-  "jsdelivr": "./dist/vuterial.umd.min.js",
-  "unpkg": "./dist/vuterial.umd.min.js",
-  "license": "MIT",
-  "author": "coppieee",
-  "files": [
-    "dist"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coppieee/vuterial.git"
-  },
   "scripts": {
     "build-docs": "cross-env BUILD_TARGET=docs vue-cli-service build --dest docs",
     "build-lib": "cross-env BUILD_TARGET=lib vue-cli-service build --target lib --name vuterial ./src/components/index.ts",
@@ -83,7 +83,6 @@
     "vue": "^2.6.6",
     "vue-router": "^3.0.2"
   },
-  "private": false,
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
