@@ -1,8 +1,40 @@
-# vuterial
+# Vuterial
+VuterialはMaterial DesignするためのVue.js Componentsです。
 
-## Project setup
+## CDNで始める
+```html
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>vuterial demo</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuterial"></script>
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vuterial/dist/vuterial.css">
+  </head>
+  <body>
+    <div id="app">
+      <md-button>button</md-button>
+    </div>
+    <script>
+      Vue.use(vuterial.Vuterial);
+      new Vue({
+        el:'#app',
+      });
+    </script>
+  </body>
+</html>
 ```
-npm install
+
+## Vue cli 3で始める
+```
+$ npm i -g @vue/cli
+$ vue create my-project
+$ cd my-project
+$ npm i vuterial
+```
+
+## main.js
+```
 ```
 
 ### Compiles and hot-reloads for development

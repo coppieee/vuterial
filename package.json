@@ -1,19 +1,22 @@
 {
   "name": "vuterial",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Vue Components  Material Components for the Web",
   "keywords": [
     "vue",
     "vuejs",
     "material",
     "components",
-    "mdc"
+    "mdc",
+    "typescript"
   ],
   "main":"dist/vuterial.common.js",
   "typings":"dist/types/index.d.ts",
   "bugs": {
     "url": "https://github.com/coppieee/vuterial/issues"
   },
+  "jsdelivr": "./dist/vuterial.umd.min.js",
+  "unpkg": "./dist/vuterial.umd.min.js",
   "license": "MIT",
   "author": "coppieee",
   "files": [
