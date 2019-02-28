@@ -1,5 +1,9 @@
 <template>
   <div>
+    <iframe height="462" style="width: 100%;" scrolling="no" title="vuterial-demo-button" src="//codepen.io/coppieee/embed/JzYXdX/?height=462&theme-id=0&default-tab=html,result" frameborder="no" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href='https://codepen.io/coppieee/pen/JzYXdX/'>vuterial-demo-button</a> by Daisuke Yagi
+  (<a href='https://codepen.io/coppieee'>@coppieee</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>
     <mdc-subtitle1>Text button</mdc-subtitle1>
     <div class="demo-buttons">
       <mdc-button class="demo-button">default</mdc-button>

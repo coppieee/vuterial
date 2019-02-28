@@ -34,9 +34,9 @@
       </mdc-drawer>
     </template>
     <template #contents>
-      <div class="demo-root-contents">
+      <doc-contents>
         <router-view/>
-      </div>
+      </doc-contents>
     </template>
   </mdc-app>
 </template>
@@ -58,9 +58,6 @@ button{
   outline: none;
   padding: 0;
   appearance: none;
-}
-.demo-root-contents{
-  padding: 30px;
 }
 @import "@material/top-app-bar/mdc-top-app-bar";
 @import "@material/drawer/mdc-drawer";

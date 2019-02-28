@@ -1,5 +1,5 @@
 <template>
-  <button class="mdc-button" :class="cssClass"
+  <component :is="tag" :to="to" class="mdc-button" :class="cssClass"
     :disabled="disabled"
     @click="click">
     <i v-if="icon" class="material-icons mdc-button__icon" aria-hidden="true">
@@ -8,7 +8,7 @@
     <span class="mdc-button__label">
       <slot/>
     </span>
-  </button>
+  </component>
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
@@ -16,6 +16,8 @@ import {MDCRipple} from '@material/ripple'
 import { VNode ,PropOptions } from 'vue'
 @Component({})
 export default class MdcList extends Vue{
+  @Prop({default:'button'}) tag!:string
+  @Prop({default:undefined}) to?:string
   @Prop({default:undefined}) icon?:string
 
   @Prop({type:Boolean,default:false}) disabled!:boolean

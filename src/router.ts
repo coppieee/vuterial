@@ -24,7 +24,7 @@ const configs:Config[] = [
   {
     components:[
       [{Home},{}],
-      [{GettingStarted},{}],
+      [{'getting-started':GettingStarted},{}],
     ],
     sort:false,
   },
