@@ -20,19 +20,19 @@ export default class MdcTopAppBar extends Vue{
   @Prop({default:'header'})
   tag!:string
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   short!:boolean
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   shortCollapsed!:boolean
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   fixed!:boolean
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   prominent!:boolean
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   dense!:boolean
 
   topAppBar!:MDCTopAppBar

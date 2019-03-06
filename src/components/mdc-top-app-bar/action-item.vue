@@ -9,10 +9,10 @@ export default class ActionItem extends Vue{
   @Prop({default:'header'})
   tag!:string
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   alignStart!:boolean
 
-  @Prop({default:false})
+  @Prop({default:false,type:Boolean})
   alignEnd!:boolean
 
   @Prop({default:undefined})

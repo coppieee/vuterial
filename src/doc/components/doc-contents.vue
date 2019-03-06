@@ -7,6 +7,7 @@
 .doc-contents{
   padding: 30px;
   max-width: 800px;
+  width: 100%;
   margin: 0 auto;
 }
 </style>

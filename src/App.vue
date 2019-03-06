@@ -1,35 +1,30 @@
 <template>
-  <mdc-app :drawer-open="drawerOpen" drawerType="dismissible">
+  <mdc-app :drawerType="drawerType">
     <template #top-app-bar>
-      <mdc-top-app-bar >
+      <mdc-top-app-bar :fixed="true">
         <mdc-top-app-bar-section align-start>
           <mdc-top-app-bar-action-item @click.native="drawerOpen = !drawerOpen">menu</mdc-top-app-bar-action-item>
           <mdc-top-app-bar-title>Vuterial</mdc-top-app-bar-title>
         </mdc-top-app-bar-section>
         <mdc-top-app-bar-section align-end role="toolbar">
-          <!-- <mdc-top-app-bar-action-item to="/">flie_download</mdc-top-app-bar-action-item>
-          <mdc-top-app-bar-action-item to="/">print</mdc-top-app-bar-action-item>
-          <mdc-top-app-bar-action-item to="/">bookmark</mdc-top-app-bar-action-item> -->
         </mdc-top-app-bar-section>
       </mdc-top-app-bar>
     </template>
     <template #drawer>
-      <mdc-drawer :modal="false" :dismissible="true" :open.sync="drawerOpen">
+      <mdc-drawer :drawerType="drawerType" :open.sync="drawerOpen" ref="drawer">
         <mdc-list tag="nav">
           <mdc-list-item v-for="route in routes" :key="route.name"
             :to="route.path"
             auto-path-activated
-            :icon="route.icon">
+            :icon="route.icon"
+            @click.native="clickDrawerItem()">
             {{route.name}}
           </mdc-list-item>
-          <!-- <mdc-list-item to="/" auto-path-activated icon="inbox">home</mdc-list-item>
-          <mdc-list-item to="/list" auto-path-activated icon="list"> list</mdc-list-item>
-          <mdc-list-item to="/tab" auto-path-activated icon="tab"> tab</mdc-list-item>
-          <mdc-list-item to="/typography" auto-path-activated icon="text_format"> Typography</mdc-list-item>
-          <mdc-list-item to="/chip" auto-path-activated icon="bookmark">Chip</mdc-list-item>
-          <mdc-list-item to="/card" auto-path-activated icon="crop_din">Card</mdc-list-item>
-          <mdc-list-item to="/button" auto-path-activated icon="touch_app">button</mdc-list-item>
-          <mdc-list-item to="/image-list" auto-path-activated icon="touch_app">image-list</mdc-list-item> -->
+          <mdc-list-item>hello</mdc-list-item>
+          <mdc-list-item>hello</mdc-list-item>
+          <mdc-list-item>hello</mdc-list-item>
+          <mdc-list-item>hello</mdc-list-item>
+          <mdc-list-item>hello</mdc-list-item>
         </mdc-list>
       </mdc-drawer>
     </template>
@@ -77,13 +72,26 @@ button{
 
 </style>
 <script lang="ts">
+
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import {routeConfigs} from '@/router'
+import { DrawerType } from '@/components/mdc-drawer'
+import MdcDrawer from '@/components/mdc-drawer/mdc-drawer.vue'
 @Component({})
 export default class App extends Vue {
   drawerOpen:boolean = false
+  drawerType = 'auto'
   routes = routeConfigs
   mounted(){
+  }
+  beforeDestory(){
+
+  }
+  clickDrawerItem(){
+    const drawer = this.$refs.drawer as MdcDrawer
+    if(drawer.currentDrawerType === 'modal'){
+      this.drawerOpen = false
+    }
   }
 }
 </script>
