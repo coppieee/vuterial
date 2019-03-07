@@ -28,7 +28,7 @@ export default class MdcList extends Vue{
   @Prop({default:'div'}) tag!:string
   @Prop({default:undefined}) icon?:string
 
-  @Prop({type:Boolean,default:false}) autoPathActivated!:boolean
+  @Prop({type:Boolean,default:false}) autoActivatedByPath!:boolean
 
   get _is():string{
     return this.to !== undefined ? 'router-link' : this.tag
@@ -36,7 +36,7 @@ export default class MdcList extends Vue{
 
   get _cssClass(){
     return {
-      'mdc-list-item--activated':this.activated || (this.autoPathActivated && this.to === this.$route.path),
+      'mdc-list-item--activated':this.activated || (this.autoActivatedByPath && this.to === this.$route.path),
       'mdc-list-item--selected':this.selected,
     }
   }

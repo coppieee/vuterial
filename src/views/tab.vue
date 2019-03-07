@@ -1,40 +1,54 @@
 <template>
   <div class="demo-content">
-      <h2>tab</h2>
-      <mdc-subtitle1>Single line</mdc-Subtitle1>
-      <mdc-tab-bar class="demo-tab" @activate="tabIndex= $event.index">
-        <mdc-tab :active="true">home</mdc-tab>
-        <mdc-tab>Merchandise</mdc-tab>
-        <mdc-tab>About us</mdc-tab>
-      </mdc-tab-bar>
-      <div>selectedIndex:{{tabIndex}}</div>
+    <h2>tab</h2>
+    <mdc-subtitle1>Single line</mdc-Subtitle1>
+    <mdc-tab-bar class="demo-tab" @activate="tabIndex= $event.index">
+      <mdc-tab active>home</mdc-tab>
+      <mdc-tab>Merchandise</mdc-tab>
+      <mdc-tab>About us</mdc-tab>
+    </mdc-tab-bar>
+    <div>selectedIndex:{{tabIndex}}</div>
 
-      <mdc-subtitle1>icon tab</mdc-Subtitle1>
-      <mdc-tab-bar class="demo-tab">
-        <mdc-tab icon="access_time" :active="true">recents</mdc-tab>
-        <mdc-tab icon="near_me">nearby</mdc-tab>
-        <mdc-tab icon="favorites">favorites</mdc-tab>
-      </mdc-tab-bar>
+    <mdc-subtitle1>icon tab</mdc-Subtitle1>
+    <mdc-tab-bar class="demo-tab">
+      <mdc-tab icon="access_time" :active="true">recents</mdc-tab>
+      <mdc-tab icon="near_me">nearby</mdc-tab>
+      <mdc-tab icon="favorites">favorites</mdc-tab>
+    </mdc-tab-bar>
 
-      <mdc-subtitle1>icon tab</mdc-Subtitle1> 
-      <mdc-tab-bar class="demo-tab" :stacked="true">
-        <mdc-tab icon="access_time" :stacked="true" :active="true">recents</mdc-tab>
-        <mdc-tab icon="near_me" :stacked="true">nearby</mdc-tab>
-        <mdc-tab icon="favorites" :stacked="true">favorites</mdc-tab>
-      </mdc-tab-bar>
+    <mdc-subtitle1>stacked tab</mdc-Subtitle1> 
+    <mdc-tab-bar class="demo-tab" stacked>
+      <mdc-tab icon="access_time" stacked active>recents</mdc-tab>
+      <mdc-tab icon="near_me" stacked>nearby</mdc-tab>
+      <mdc-tab icon="favorites" stacked>favorites</mdc-tab>
+    </mdc-tab-bar>
 
-      <mdc-subtitle1>scroll tab</mdc-Subtitle1>  
-      <mdc-tab-bar class="demo-tab">
-        <mdc-tab :active="true">tab one</mdc-tab>
-        <mdc-tab>tab two</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-        <mdc-tab>tab tree</mdc-tab>
-      </mdc-tab-bar>
+    <mdc-subtitle1>scroll tab</mdc-Subtitle1>  
+    <mdc-tab-bar class="demo-tab">
+      <mdc-tab active>tab one</mdc-tab>
+      <mdc-tab>tab two</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab tree</mdc-tab>
+    </mdc-tab-bar>
+
+    <mdc-subtitle1>router-link tab</mdc-Subtitle1>
+    <mdc-tab-bar class="demo-tab">
+      <mdc-tab active tag="a" href="#/tab/1">home</mdc-tab>
+      <mdc-tab tag="a" href="#/tab/2">Merchandise</mdc-tab>
+      <mdc-tab tag="a" href="#/tab/3">About us</mdc-tab>
+    </mdc-tab-bar>
+
+    <mdc-subtitle1>router-link tab</mdc-Subtitle1>
+    <mdc-tab-bar class="demo-tab">
+      <mdc-tab active to="/tab/1">home</mdc-tab>
+      <mdc-tab to="/tab/2">Merchandise</mdc-tab>
+      <mdc-tab to="/tab/3">About us</mdc-tab>
+    </mdc-tab-bar>
   </div>
 </template>
 <style scoped>
