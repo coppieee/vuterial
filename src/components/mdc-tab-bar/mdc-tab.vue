@@ -15,14 +15,11 @@
 </template>
 <script lang="ts">
 import { Component, Vue,Prop } from 'vue-property-decorator'
-// import {MDCTab, MDCTabFoundation} from '@material/tab/index'
+import {MDCTab, MDCTabFoundation} from '@material/tab/index'
 // import {MDCTabIndicator} from '@material/tab-indicator'
 // import { MDCTabIndicatorFoundation} from '@material/tab-indicator'
 // import { MDCSlidingTabIndicatorFoundation } from '@material/tab-indicator'
 import MdcTabIndicator from '@/components/mdc-tab-bar/mdc-tab-indicator.vue'
-import{tab as mdcTab,tabBar as mdcTabBar} from 'material-components-web'
-type MDCTab = mdcTab.MDCTab
-type MDCTabBar = mdcTabBar.MDCTabBar
 @Component({})
 export default class MdcTabbar extends Vue{
   @Prop({default:'button',type:String}) tag!:string
@@ -38,9 +35,9 @@ export default class MdcTabbar extends Vue{
    * mdc-tab-barから呼ばれる
    */
   createMdcTab(el:Element){
-    const tab = new mdcTab.MDCTab(el,
-      new mdcTab.MDCTabFoundation({
-        ...mdcTab.MDCTabFoundation.defaultAdapter,
+    const tab = new MDCTab(el,
+      new MDCTabFoundation({
+        ...MDCTabFoundation.defaultAdapter,
         addClass: (className) => this.addCssClass(className),
         removeClass: (className) => this.removeCssClass(className),
         hasClass: (className) => this.hasCssClass(className),

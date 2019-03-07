@@ -12,8 +12,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
-// import {MDCRipple} from '@material/ripple'
-import{ripple} from 'material-components-web'
+import {MDCRipple} from '@material/ripple'
 
 import { VNode ,PropOptions } from 'vue'
 @Component({})
@@ -40,10 +39,10 @@ export default class MdcList extends Vue{
   }
   @Emit() click(){
   }
-  mdcRipple?:ripple.MDCRipple
+  mdcRipple?:MDCRipple
   mounted(){
     if(this.ripple){
-      this.mdcRipple= new ripple.MDCRipple(this.$el)
+      this.mdcRipple= new MDCRipple(this.$el)
     }
   }
   beforeDestory(){

@@ -5,9 +5,7 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
-// import {MDCRipple} from '@material/ripple'
-import{ripple} from 'material-components-web'
-type MDCRipple = ripple.MDCRipple
+import {MDCRipple} from '@material/ripple'
 @Component({})
 export default class MdcRipple extends Vue{
   @Prop({default:'div'}) tag!:string
@@ -25,7 +23,7 @@ export default class MdcRipple extends Vue{
   mounted(){
     if(this.js){
       console.log('mounted image list item')
-      this.ripple= new ripple.MDCRipple(this.$el as Element)
+      this.ripple= new MDCRipple(this.$el as Element)
     }
   }
   beforeDestory(){

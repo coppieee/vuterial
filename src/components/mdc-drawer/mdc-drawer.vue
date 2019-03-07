@@ -25,11 +25,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-// import {MDCDrawer} from '@material/drawer'
-import{drawer} from 'material-components-web'
+import {MDCDrawer} from '@material/drawer'
 import {DrawerType} from './'
 import { DrawerBreakPoints } from '@/components/mdc-drawer/drawer-break-points'
-type MDCDrawer = drawer.MDCDrawer
 @Component({})
 export default class MdcDrawer extends Vue{
   @Prop({default:false,type:Boolean}) dismissible!:boolean
@@ -88,7 +86,7 @@ export default class MdcDrawer extends Vue{
     if(this.currentDrawerType === 'modal' && this.mdcDrawer === undefined){
       await this.$nextTick()
       const el = this.$refs.mdcModalDrawer as Element
-      this.mdcDrawer = drawer.MDCDrawer.attachTo(el)
+      this.mdcDrawer = MDCDrawer.attachTo(el)
       this.$emit('update:open',false)
     }else if(this.currentDrawerType !== 'modal'){
       if(this.mdcDrawer !== undefined){
