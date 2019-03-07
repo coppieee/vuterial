@@ -25,16 +25,8 @@ export default class MdcTabbar extends Vue{
   @Prop({default:'button',type:String}) tag!:string
   @Prop({default:undefined,type:String}) to?:string
   @Prop({default:false,type:Boolean}) autoActivatedByPath!:boolean
-  // @Prop({default:undefined,type:Number}) tabindex?:number
-
-  // @Prop({default:false,type:Boolean}) areaSelected!:boolean
-
   @Prop({default:false,type:Boolean}) stacked!:boolean
-
   @Prop({default:undefined,type:String}) icon?:string
-  // @Prop({default:undefined})
-  // href!:string|undefined
-
   @Prop({default:false,type:Boolean}) active!:boolean
 
   areaSelected = 'false'
@@ -50,7 +42,6 @@ export default class MdcTabbar extends Vue{
         removeClass: (className) => this.removeCssClass(className),
         hasClass: (className) => this.hasCssClass(className),
         setAttr:(name,value)=>{
-          // console.log('setAttr',name,value)
           if(name === 'aria-selected'){
             this.areaSelected = value
           }
@@ -58,32 +49,13 @@ export default class MdcTabbar extends Vue{
             this.tabIndex = value
           }
           this.$forceUpdate()
-          // MDCTabFoundation.defaultAdapter.setAttr(name,value)
         },
       }),
       undefined,
       (el:Element)=>{
-        // console.log('createTabIndicator')
         return (this.$refs.tabIndicator as MdcTabIndicator).createTabIndicator(el)
-        // console.log('MDCTabIndicatorFoundation defaultAdapter',MDCTabIndicatorFoundation)
-        // this.mdcTabIndicator = new MDCTabIndicator(el,new MDCSlidingTabIndicatorFoundation({
-        //   ...MDCTabIndicatorFoundation.defaultAdapter,
-        //   addClass(name){
-            
-        //   },
-        //   removeClass(name){
-
-        //   },
-        // }))
-        // // console.log('mdcTabIndicator',this.mdcTabIndicator)
-        // return this.mdcTabIndicator
       },
     )
-    // tab.initialize(undefined,(el:Element)=>{
-    //   this.mdcTabIndicator = new MDCTabIndicator(el)
-    //   console.log('mdcTabIndicator',this.mdcTabIndicator)
-    //   return this.mdcTabIndicator
-    // })
     tab.listen('MDCTab:interacted',(e)=>{
       // console.log('lis',e)
     })
@@ -91,24 +63,16 @@ export default class MdcTabbar extends Vue{
     return tab
   }
   mdcTabActive():boolean{
-    // console.log('mdcTab',this.mdcTab)
-    // if(this.mdcTab === undefined){return this.active}
-    
-    // return this.mdcTab.active
-    // console.log('mdcTabActive')
     return this.hasCssClass('mdc-tab--active')
   }
   mdcTab?:MDCTab
-  // mdcTabIndicator?:MDCTabIndicator
   mounted(){
     this.cssClass = {}
     if(this.stacked){
       this.addCssClass('mdc-tab--stacked')
-      // console.log('stacked',[...this.cssClass])
     }
     if(this.active){
       this.addCssClass('mdc-tab--active')
-      // console.log('active',[...this.cssClass])
     }
   }
   beforeDestroy(){
@@ -131,11 +95,5 @@ export default class MdcTabbar extends Vue{
   hasCssClass(className:string):boolean{
     return this.cssClass.hasOwnProperty(className) && this.cssClass[className]
   }
-  
-  // private get mdcTabCssClass(){
-  //   console.log(Object.keys(this.cssClass))
-  //   return this.cssClass
-  // }
-
 }
 </script>

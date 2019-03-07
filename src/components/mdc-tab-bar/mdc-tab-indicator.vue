@@ -5,7 +5,6 @@
 </template>
 <script lang="ts">
 import { Component, Vue,Prop } from 'vue-property-decorator'
-// import {tabIndicator} from 'material-components-web'
 import {MDCTabIndicator,MDCTabIndicatorFoundation,MDCSlidingTabIndicatorFoundation} from '@material/tab-indicator'
 @Component({})
 export default class MdcTabIndicator extends Vue{
@@ -21,15 +20,12 @@ export default class MdcTabIndicator extends Vue{
     }
   }
   createTabIndicator(el:Element):MDCTabIndicator{
-    console.log('yes create')
     this.mdcTabIndicator = new MDCTabIndicator(this.$el,new MDCSlidingTabIndicatorFoundation({
       ...MDCTabIndicatorFoundation.defaultAdapter,
       addClass:name =>{
-        console.log('ind add',name)
         this.addCssClass(name)
       },
       removeClass:name=>{
-        console.log('ind remove',name)
         this.addCssClass(name)
       },
       setContentStyleProperty:(name,key)=>{

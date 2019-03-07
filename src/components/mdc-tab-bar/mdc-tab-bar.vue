@@ -23,7 +23,6 @@ export default class MdcTopAppBar extends Vue{
   private activateListener = (e:Event):void=>this.activate(e)
   private activate(e:Event){
     const ce = e as CustomEvent
-    // console.log('activate',e)
     const index:number = ce.detail.index
     this.$emit('activate',{index})
   }
@@ -33,25 +32,12 @@ export default class MdcTopAppBar extends Vue{
       this.tabbar = new MDCTabBar(this.$el)
       this.tabbar.initialize((el:Element)=>{
         for(const ch of this.$children.filter(ch=>ch.$el === el)){
-          // const tab:MDCTab|undefined = (ch as any).mdcTab
-          // if(tab !== undefined){
-          //   console.log('found',tab)
-          //   return tab
-          // }else{
-          //   (ch as any).mdcTab = new MDCTab(el)
-          //   return (ch as any).mdcTab
-          // }
-          // const tab = new MDCTab(el)
           const tab = (ch as any).createMdcTab(el)
           return tab
         }
-        // console.log('mdcTab not found')
         return new MDCTab(el)
       })
-      console.log((this.tabbar as any).tabList_)
       this.tabbar.listen('MDCTabBar:activated',this.activateListener)
-      // this.tabbar.useAutomaticActivation = false
-      // this.tabbar.focusOnActivate = false
     }
   }
   beforeDestroy() {
