@@ -11,7 +11,9 @@
 </template>
 <script lang="ts">
 import { Component, Vue,Prop } from 'vue-property-decorator'
-import {MDCChipSet} from '@material/chips'
+// import {MDCChipSet} from '@material/chips'
+import{chips} from 'material-components-web'
+type MDCChipSet = chips.MDCChipSet
 @Component({})
 export default class MdcChipSet extends Vue{
   chipSet?:MDCChipSet
@@ -38,7 +40,7 @@ export default class MdcChipSet extends Vue{
   mounted(){
     if(this.js){
       console.log('mounted chip')
-      this.chipSet = new MDCChipSet(this.$el)
+      this.chipSet = new chips.MDCChipSet(this.$el)
       this.chipSet.listen('MDCChip:interaction',e=>this.onInteraction(e))
       this.chipSet.listen('MDCChip:selection',(e)=>this.onSelection(e))
       this.chipSet.listen('MDCChip:removal',(e)=>this.onRemoval(e))

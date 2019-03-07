@@ -19,7 +19,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import {MDCRipple} from '@material/ripple'
+// import {MDCRipple} from '@material/ripple'
+// import{ripple} from 'material-components-web'
 @Component({})
 export default class MdcImageListItem extends Vue{
   @Prop({default:'li'}) tag!:string

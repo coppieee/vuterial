@@ -11,10 +11,13 @@
 </template>
 <script lang="ts">
 import { Component, Vue,Prop } from 'vue-property-decorator'
-import {MDCTabBar} from '@material/tab-bar'
-import MDCTabBarFoundation from '@material/tab-bar/foundation'
-import MDCTabBarAdapter from '@material/tab-bar/adapter'
-import {MDCTab} from '@material/tab/index'
+// import {MDCTabBar} from '@material/tab-bar'
+// import MDCTabBarFoundation from '@material/tab-bar/foundation'
+// import MDCTabBarAdapter from '@material/tab-bar/adapter'
+// import {MDCTab} from '@material/tab/index'
+import{tab,tabBar} from 'material-components-web'
+type MDCTab = tab.MDCTab
+type MDCTabBar = tabBar.MDCTabBar
 @Component({})
 export default class MdcTopAppBar extends Vue{
   @Prop({default:false,type:Boolean}) stacked!:boolean
@@ -29,13 +32,13 @@ export default class MdcTopAppBar extends Vue{
   mounted() {
     if(this.js){
     
-      this.tabbar = new MDCTabBar(this.$el)
+      this.tabbar = new tabBar.MDCTabBar(this.$el)
       this.tabbar.initialize((el:Element)=>{
         for(const ch of this.$children.filter(ch=>ch.$el === el)){
           const tab = (ch as any).createMdcTab(el)
           return tab
         }
-        return new MDCTab(el)
+        return new tab.MDCTab(el)
       })
       this.tabbar.listen('MDCTabBar:activated',this.activateListener)
     }

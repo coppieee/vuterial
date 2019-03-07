@@ -8,7 +8,9 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import {MDCList} from '@material/list'
+// import {MDCList} from '@material/list'
+import {list} from 'material-components-web'
+type MDCList = list.MDCList
 @Component({})
 export default class MdcList extends Vue{
   @Prop({default:'div'}) tag!:string
@@ -19,7 +21,7 @@ export default class MdcList extends Vue{
   mdcList!:MDCList
   mounted(){
     const el = this.$refs.mdcList as Element
-    this.mdcList = new MDCList(el)
+    this.mdcList = new list.MDCList(el)
   }
   beforeDestroy(){
     this.mdcList.destroy()

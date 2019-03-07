@@ -22,17 +22,17 @@
   </div>
 </template>
 <style lang="scss" scoped>
-@import "@material/image-list/mdc-image-list";
+// @import "@material/image-list/mdc-image-list";
 
 .demo-standard-image-list{
   max-width:960px;
-  @include mdc-image-list-standard-columns(5);
+  // @include mdc-image-list-standard-columns(5);
 }
 .demo-masonry-image-list{
   column-count: 5;
   -webkit-column-gap: 16px;
   column-gap: 16px;
   max-width: 900px;
-  @include mdc-image-list-masonry-columns(5);
+  // @include mdc-image-list-masonry-columns(5);
 }
 </style>

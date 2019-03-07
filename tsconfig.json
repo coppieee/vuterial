@@ -12,6 +12,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "./dist/",
+    "skipLibCheck":true,
     "types": [
       "webpack-env",
       "mocha",

@@ -14,7 +14,8 @@
 </template>
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import {MDCTopAppBar} from '@material/top-app-bar/index'
+// import {MDCTopAppBar} from '@material/top-app-bar/index'
+import{topAppBar} from 'material-components-web'
 @Component({})
 export default class MdcTopAppBar extends Vue{
   @Prop({default:'header'})
@@ -35,10 +36,10 @@ export default class MdcTopAppBar extends Vue{
   @Prop({default:false,type:Boolean})
   dense!:boolean
 
-  topAppBar!:MDCTopAppBar
+  topAppBar!:topAppBar.MDCTopAppBar
   mounted(){
     const topAppBarElement = this.$refs.topAppBar as Element
-    this.topAppBar = new MDCTopAppBar(topAppBarElement)
+    this.topAppBar = new topAppBar.MDCTopAppBar(topAppBarElement)
   }
   beforeDestroy() {
     this.topAppBar.destroy()
