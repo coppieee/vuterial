@@ -13,39 +13,40 @@ import Ripple from './views/ripple.vue'
 import { Component } from '@vue/test-utils'
 Vue.use(Router)
 interface Config{
-  components:[{[key:string]:any},ConfigOption][]
+  components:ComponentConfig[]
   sort:boolean
 }
+type ComponentConfig = [string,any,ConfigOption?]
 interface ConfigOption{
   icon?:string
+  path?:string
+  link?:string
 }
 const x = [{Home}]
 const configs:Config[] = [
   {
     components:[
-      [{Home},{}],
-      [{'getting-started':GettingStarted},{}],
+      ['home',Home,{path:'/'}],
+      ['getting-started',GettingStarted,{}],
     ],
     sort:false,
   },
   {
     components:[
-      [{Button},{icon:'touch_app'}],
-      [{Card},{icon:'crop_din'}],
-      [{Chip},{icon:'bookmark'}],
-      [{ImageList},{icon:'collections'}],
-      [{List},{icon:'list'}],
-      [{Tab},{icon:'tab'}],
-      [{Typography},{icon:'text_format'}],
-      [{Ripple},{icon:'touch_app'}],
+      ['button',Button,{icon:'touch_app'}],
+      ['card',Card,{icon:'crop_din'}],
+      ['chip',Chip,{icon:'bookmark'}],
+      ['image-list',ImageList,{icon:'collections'}],
+      ['list',List,{icon:'list'}],
+      ['tab',Tab,{icon:'tab',path:'/tab/:id?',link:'/tab'}],
+      ['typography',Typography,{icon:'text_format'}],
+      ['ripple',Ripple,{icon:'touch_app'}],
     ],
     sort:true,
   },
 ]
 export const routeConfigs:(RouteConfig & ConfigOption)[] =  configs.flatMap(config=>{
-  let entries = config.components.map(([pare,option])=>{
-    const name = Object.keys(pare)[0]
-    const component = pare[name]
+  let entries = config.components.map(([name,component,option])=>{
     return {
       name:name.toLowerCase(),
       component,
@@ -61,12 +62,14 @@ export const routeConfigs:(RouteConfig & ConfigOption)[] =  configs.flatMap(conf
   return entries.map(x=>{
     const name = x.name
     const component = x.component
-    const option = x.option
+    const option = x.option || {}
     // const name = key.toLowerCase()
+    const path = option.path || `/${name}`
     const config:RouteConfig = {
-      path:name ==='home'?'/':`/${name}`,
+      path,
       name,
       component,
+      link: path,
       ...option,
     }
     return config

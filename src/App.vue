@@ -14,8 +14,8 @@
       <mdc-drawer :drawerType="drawerType" :open.sync="drawerOpen" ref="drawer">
         <mdc-list tag="nav">
           <mdc-list-item v-for="route in routes" :key="route.name"
-            :to="route.path"
-            auto-path-activated
+            :to="route.link"
+            auto-activated-by-path
             :icon="route.icon"
             @click.native="clickDrawerItem()">
             {{route.name}}
@@ -54,21 +54,21 @@ button{
   padding: 0;
   appearance: none;
 }
-@import "@material/top-app-bar/mdc-top-app-bar";
-@import "@material/drawer/mdc-drawer";
-@import "@material/list/mdc-list";
-@import "@material/tab-bar/mdc-tab-bar";
-@import "@material/tab-scroller/mdc-tab-scroller";
-@import "@material/tab-indicator/mdc-tab-indicator";
-@import "@material/tab/mdc-tab";
-@import "@material/typography/mdc-typography";
-@import "@material/chips/mdc-chips";
-@import "@material/card/mdc-card";
-@import "@material/button/mdc-button";
-@import "@material/icon-button/mdc-icon-button";
-@import "@material/button/mdc-button";
-@import "@material/image-list/mdc-image-list";
-@import "@material/ripple/mdc-ripple";
+// @import "@material/top-app-bar/mdc-top-app-bar";
+// @import "@material/drawer/mdc-drawer";
+// @import "@material/list/mdc-list";
+// @import "@material/tab-bar/mdc-tab-bar";
+// @import "@material/tab-scroller/mdc-tab-scroller";
+// @import "@material/tab-indicator/mdc-tab-indicator";
+// @import "@material/tab/mdc-tab";
+// @import "@material/typography/mdc-typography";
+// @import "@material/chips/mdc-chips";
+// @import "@material/card/mdc-card";
+// @import "@material/button/mdc-button";
+// @import "@material/icon-button/mdc-icon-button";
+// @import "@material/button/mdc-button";
+// @import "@material/image-list/mdc-image-list";
+// @import "@material/ripple/mdc-ripple";
 
 </style>
 <script lang="ts">
