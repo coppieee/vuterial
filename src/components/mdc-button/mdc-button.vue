@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" :to="to" class="mdc-button" :class="cssClass"
+  <component :is="is_" :to="to" class="mdc-button" :class="cssClass"
     :disabled="disabled"
     @click="click">
     <i v-if="icon" class="material-icons mdc-button__icon" aria-hidden="true">
@@ -28,6 +28,14 @@ export default class MdcList extends Vue{
   @Prop({type:Boolean,default:false}) dense!:boolean
 
   @Prop({type:Boolean,default:true}) ripple!:boolean
+
+  get is_():string{
+    if(this.to !== undefined){
+      return 'router-link'
+    }else{
+      return  this.tag
+    }
+  }
 
   get cssClass(){
     return {

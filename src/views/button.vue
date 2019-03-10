@@ -46,6 +46,12 @@
       <mdc-button class="demo-button" raised dense disabled>Dense</mdc-button>
       <mdc-button class="demo-button" raised icon="favorite" disabled>icon</mdc-button>
     </div>
+    <mdc-subtitle1>link button</mdc-subtitle1>
+    <div class="demo-buttons">
+      <mdc-button tag="a" href="https://github.com/coppieee/vuterial" class="demo-button" target="_blank">github</mdc-button>
+      <mdc-button to="/button" class="demo-button" dense>to-button</mdc-button>
+      <mdc-button class="demo-button" icon="favorite">icon</mdc-button>
+    </div>
   </div>
 </template>
 <style lang="postcss" scoped>
