@@ -49,8 +49,7 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import {  DrawerBreakPoints } from '@/components/mdc-drawer/drawer-break-points'
 @Component({})
 export default class MdcApp extends Vue{
-  @Prop({default:'modal'})
-  drawerType!:DrawerType | 'auto'
+  @Prop({default:'modal'}) drawerType!:DrawerType | 'auto'
   get currentDrawerType():DrawerType{
     if(this.drawerType === 'auto'){
       return this.breakPoints.drawerType

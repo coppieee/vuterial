@@ -9,17 +9,18 @@
     <aside class="mdc-drawer vt-drawer" 
       :class="{
           'vt-drawer--dismissible':currentDrawerType === 'dismissible',
-          'vt-drawer-open':drawerOpen,
-          'vt-drawer-animation':drawerAnimation,
-          'vt-drawer-close':drawerClose,
+          'vt-drawer-open':drawerOpen_,
+          'vt-drawer-animation':drawerAnimation_,
+          'vt-drawer-close':drawerClose_,
       }"
       key="drawer">
       <slot/>
     </aside>
-    <div class="vt-drawer-area" :class="{
-      'vt-drawer-open':drawerOpen,
-      'vt-drawer-animation':drawerAnimation,
-      'vt-drawer-close':drawerClose,
+    <div class="vt-drawer-area"
+    :class="{
+      'vt-drawer-open':drawerOpen_,
+      'vt-drawer-animation':drawerAnimation_,
+      'vt-drawer-close':drawerClose_,
     }"></div>
   </div>
 </template>
@@ -34,16 +35,15 @@ export default class MdcDrawer extends Vue{
   @Prop({default:false,type:Boolean}) modal!:boolean
   @Prop({default:false,type:Boolean}) permanent!:boolean
   @Prop({default:false,type:Boolean}) open!:boolean
-  mdcDrawer?:MDCDrawer
+  @Prop({default:true}) js!:boolean
+  @Prop({default:undefined,type:String}) drawerType?:DrawerType | 'auto'
 
-  @Prop({default:undefined}) drawerType?:DrawerType | 'auto'
   get currentDrawerType():DrawerType{
     if(this.drawerType !== undefined){
       if(this.drawerType !== 'auto'){
         return this.drawerType
       }
-      console.log('breakPoints',this.breakPoints)
-      return this.breakPoints.drawerType
+      return this.breakPoints_.drawerType
     }
     if(this.modal){ return 'modal' }
     if(this.dismissible) { return 'dismissible' }
@@ -51,64 +51,62 @@ export default class MdcDrawer extends Vue{
     return 'modal'
   }
 
-  @Prop({default:true}) js!:boolean
-
-  breakPoints:DrawerBreakPoints = new DrawerBreakPoints()
-  closeListener = ()=>{this.onClose()}
-
-  drawerAnimation:boolean = false
-  drawerOpen:boolean = false
-  drawerClose:boolean = false
+  mdcDrawer_?:MDCDrawer
+  breakPoints_:DrawerBreakPoints = new DrawerBreakPoints()
+  closeListener_ = ()=>{this.onClose_()}
+  drawerAnimation_:boolean = false
+  drawerOpen_:boolean = false
+  drawerClose_:boolean = false
 
   constructor(){
     super()
   }
   @Watch('currentDrawerType') changeDrawerType(to:string,from:string){
-    this.mountDrawer()
+    this.mountDrawer_()
   }
-  @Watch('open') async onOpen(){
-    if(this.mdcDrawer !== undefined && this.currentDrawerType === 'modal'){
-      this.mdcDrawer.open = this.open
+  @Watch('open') async onOpen_(){
+    if(this.mdcDrawer_ !== undefined && this.currentDrawerType === 'modal'){
+      this.mdcDrawer_.open = this.open
     }else if(this.currentDrawerType === 'dismissible'){
-      this.drawerOpen =  !this.open
-      this.drawerClose = this.open
+      this.drawerOpen_ =  !this.open
+      this.drawerClose_ = this.open
       await this.$nextTick()
-      this.drawerAnimation = true
+      this.drawerAnimation_ = true
       await this.$nextTick()
-      this.drawerOpen =  this.open
-      this.drawerClose = !this.open
+      this.drawerOpen_ =  this.open
+      this.drawerClose_ = !this.open
     }
   }
-  onClose(){
+  onClose_(){
     this.$emit('update:open',false)
   }
-  async mountDrawer(){
-    if(this.currentDrawerType === 'modal' && this.mdcDrawer === undefined){
+  async mountDrawer_(){
+    if(this.currentDrawerType === 'modal' && this.mdcDrawer_ === undefined){
       await this.$nextTick()
       const el = this.$refs.mdcModalDrawer as Element
-      this.mdcDrawer = MDCDrawer.attachTo(el)
+      this.mdcDrawer_ = MDCDrawer.attachTo(el)
       this.$emit('update:open',false)
     }else if(this.currentDrawerType !== 'modal'){
-      if(this.mdcDrawer !== undefined){
-        this.mdcDrawer.destroy()
-        this.mdcDrawer = undefined
+      if(this.mdcDrawer_ !== undefined){
+        this.mdcDrawer_.destroy()
+        this.mdcDrawer_ = undefined
       }
       this.$emit('update:open',true)
     }
   }
   mounted(){
-    this.breakPoints.init()
+    this.breakPoints_.init()
     if(this.js){
-      document.body.addEventListener('MDCDrawer:closed', this.closeListener)
-      this.mountDrawer()
+      document.body.addEventListener('MDCDrawer:closed', this.closeListener_)
+      this.mountDrawer_()
     }
   }
   beforeDestory(){
-    if(this.mdcDrawer !== undefined){
-      this.mdcDrawer.destroy()
+    if(this.mdcDrawer_ !== undefined){
+      this.mdcDrawer_.destroy()
     }
-    document.body.removeEventListener('MDCDrawer:closed',this.closeListener)
-    this.breakPoints.destroy()
+    document.body.removeEventListener('MDCDrawer:closed',this.closeListener_)
+    this.breakPoints_.destroy()
   }
 }
 </script>

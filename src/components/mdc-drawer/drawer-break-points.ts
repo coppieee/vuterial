@@ -30,11 +30,9 @@ export class DrawerBreakPoints{
         return this._emit(bp.type)
       }
     }
-    console.log('noting match')
     this._emit('modal')
   }
   _emit(drawerType:DrawerType){
-    // console.log('emit',drawerType)
     this._drawerType = drawerType
     if(this._listener){
       this._listener(drawerType)
