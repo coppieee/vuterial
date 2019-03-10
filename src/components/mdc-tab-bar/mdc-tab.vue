@@ -23,7 +23,7 @@ import { MDCTabIndicatorFactory } from '@material/tab-indicator/index'
 export default class MdcTabbar extends Vue{
   @Prop({default:'button',type:String}) tag!:string
   @Prop({default:undefined,type:String}) to?:string
-  @Prop({default:false,type:Boolean}) autoActivatedByPath!:boolean
+  @Prop({default:true,type:Boolean}) activateOnLink!:boolean
   @Prop({default:false,type:Boolean}) stacked!:boolean
   @Prop({default:undefined,type:String}) icon?:string
   @Prop({default:false,type:Boolean}) active!:boolean
@@ -92,7 +92,7 @@ export default class MdcTabbar extends Vue{
       this.addCssClass('mdc-tab--stacked')
     }
     this.active_ = this.active
-    if(this.to !== undefined){
+    if(this.activateOnLink && this.to !== undefined){
       const {route} = this.$router.resolve(this.to)
       if(route.path === this.$route.path ){
         this.active_ = true

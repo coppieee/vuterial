@@ -15,7 +15,7 @@
         <mdc-list tag="nav">
           <mdc-list-item v-for="route in routes" :key="route.name"
             :to="route.link"
-            auto-activated-by-path
+            activate-on-link
             :icon="route.icon"
             @click.native="clickDrawerItem()">
             {{route.name}}

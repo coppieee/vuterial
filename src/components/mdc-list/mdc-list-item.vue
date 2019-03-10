@@ -1,5 +1,5 @@
 <template>
-  <component :is="_is" :to="to" class="mdc-list-item" :class="_cssClass">
+  <component :is="is_" :to="to" class="mdc-list-item" :class="cssClass_">
     <i v-if="icon!==undefined" class="material-icons mdc-list-item__graphic" aria-hidden="true">
       {{icon}}
     </i>
@@ -28,15 +28,24 @@ export default class MdcList extends Vue{
   @Prop({default:'div'}) tag!:string
   @Prop({default:undefined}) icon?:string
 
-  @Prop({type:Boolean,default:false}) autoActivatedByPath!:boolean
+  @Prop({type:Boolean,default:false}) activateOnLink!:boolean
 
-  get _is():string{
+  get is_():string{
     return this.to !== undefined ? 'router-link' : this.tag
   }
-
-  get _cssClass(){
+  get isActiveOnLink_(){
+    if(!this.activateOnLink){
+      return false
+    }
+    if(this.to === undefined){
+      return false
+    }
+    const {route}=this.$router.resolve(this.to)
+    return route.path === this.$route.path
+  }
+  get cssClass_(){
     return {
-      'mdc-list-item--activated':this.activated || (this.autoActivatedByPath && this.to === this.$route.path),
+      'mdc-list-item--activated':this.activated || this.isActiveOnLink_,
       'mdc-list-item--selected':this.selected,
     }
   }

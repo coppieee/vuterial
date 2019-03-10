@@ -13,7 +13,7 @@ export default class MdcTabIndicator extends Vue{
   
   mounted(){
     this.cssClass = {}
-    this.contentStyle = {transform:'translateX(0)'}
+    this.contentStyle = {}
   }
   activate(){
     this.addCssClass('mdc-tab-indicator--active')
@@ -49,7 +49,7 @@ export default class MdcTabIndicator extends Vue{
   removeCssClass(className:string){
     this.cssClass[className] = false
   }
-  contentStyle:{[key:string]:string} = {transform:'translateX(0)'}
+  contentStyle:{[key:string]:string} = {}
   setContentStyleProperty(name:string,value:string){
     this.$set(this.contentStyle,name,value)
   }
