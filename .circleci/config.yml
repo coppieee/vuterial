@@ -41,6 +41,9 @@ jobs:
       - run:
           name: Build library
           command: npm run build-bundle
+      - persist_to_workspace:
+          root: ~/repo
+          paths: .
   deploy:
     <<: *defaults
     steps:
