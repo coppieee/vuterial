@@ -1,6 +1,7 @@
 const buildTarget = process.env.BUILD_TARGET
 const publicPath = buildTarget === 'docs' ? '/vuterial/':'/'
 module.exports = {
+  parallel: false,
   publicPath,
   configureWebpack: {
     resolve: {
