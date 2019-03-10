@@ -2,7 +2,7 @@
   <div class="mdc-card" :class="{'mdc-card--outlined':outlined}">
     <div class="mdc-card__primary-action" :tabindex="tabindex">
       <div v-if="mediaSrc!== undefined" 
-        class="mdc-card__media mdc-card__media--16-9"
+        class="mdc-card__media"
         :class="{
           'mdc-card__media--square':mediaSquare,
           'mdc-card__media--16-9':media16_9,
@@ -11,7 +11,6 @@
         :style="{'background-img':'url('+mediaSrc+')'}"
       >
       </div>
-      <slot/>
       <div class="vuterial-card-primary">
         <mdc-headline6 class="vuterial-card-title" v-if="hasSlot('title')">
           <slot name="title"/>
