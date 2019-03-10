@@ -38,6 +38,7 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > ~/repo/.npmrc
       - run:
+          no_output_timout: 30m
           name: Build library
           command: npm run build-bundle
       - run:
