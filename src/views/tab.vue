@@ -38,14 +38,14 @@
 
     <mdc-subtitle1>router-link tab</mdc-Subtitle1>
     <mdc-tab-bar class="demo-tab">
-      <mdc-tab active tag="a" href="#/tab/1">home</mdc-tab>
-      <mdc-tab tag="a" href="#/tab/2">Merchandise</mdc-tab>
-      <mdc-tab tag="a" href="#/tab/3">About us</mdc-tab>
+      <mdc-tab tag="a" href="https://www.npmjs.com/package/vuterial" target="_blank">npm</mdc-tab>
+      <mdc-tab tag="a" href="https://github.com/coppieee/vuterial" target="_blank">github</mdc-tab>
+      <mdc-tab tag="a" href="https://material.io" target="_blank">material.io</mdc-tab>
     </mdc-tab-bar>
 
     <mdc-subtitle1>router-link tab</mdc-Subtitle1>
     <mdc-tab-bar class="demo-tab">
-      <mdc-tab active to="/tab/1">home</mdc-tab>
+      <mdc-tab to="/tab/1">home</mdc-tab>
       <mdc-tab to="/tab/2">Merchandise</mdc-tab>
       <mdc-tab to="/tab/3">About us</mdc-tab>
     </mdc-tab-bar>
@@ -62,8 +62,8 @@
   /* overflow:auto; */
 }
 .demo-content-transition {
-    width: 100%;
-    max-width: 900px;
+  width: 100%;
+  max-width: 900px;
 }
 </style>
 
