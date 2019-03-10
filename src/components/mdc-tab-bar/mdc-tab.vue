@@ -1,7 +1,7 @@
 <template>
   <component :is="currentTag"
     :to="to"
-    class="mdc-tab"
+    class="mdc-tab vt-tab"
     :class="cssClass" role="tab" :aria-selected="areaSelected" :tabIndex="tabIndex">
     <span class="mdc-tab__content">
       <span v-if="icon" class="mdc-tab__icon material-icons" aria-hidden="true">{{icon}}</span>
@@ -9,10 +9,20 @@
         <slot/>
       </span>
     </span>
-    <mdc-tab-indicator ref="tabIndicator"></mdc-tab-indicator>
+    <mdc-tab-indicator ref="tabIndicator" :raised="raised"></mdc-tab-indicator>
     <span class="mdc-tab__ripple"></span>
   </component>
 </template>
+<style lang="scss" scoped>
+@import "@material/theme/mixins";
+@import "@material/tab/mixins";
+.vt-tab--raised{
+  @include mdc-theme-prop(background-color, primary);
+  @include mdc-tab-text-label-color(on-primary);
+  @include mdc-tab-icon-color(on-primary);
+}
+</style>
+
 <script lang="ts">
 import { Component, Vue,Prop } from 'vue-property-decorator'
 import {MDCTab, MDCTabFoundation, MDCTabAdapter} from '@material/tab/index'
@@ -27,6 +37,7 @@ export default class MdcTabbar extends Vue{
   @Prop({default:false,type:Boolean}) stacked!:boolean
   @Prop({default:undefined,type:String}) icon?:string
   @Prop({default:false,type:Boolean}) active!:boolean
+  @Prop({default:false,type:Boolean}) raised!:boolean
   active_:boolean = false
 
   areaSelected = 'false'
@@ -90,6 +101,9 @@ export default class MdcTabbar extends Vue{
     this.cssClass = {}
     if(this.stacked){
       this.addCssClass('mdc-tab--stacked')
+    }
+    if(this.raised){
+      this.addCssClass('vt-tab--raised')
     }
     this.active_ = this.active
     if(this.activateOnLink && this.to !== undefined){

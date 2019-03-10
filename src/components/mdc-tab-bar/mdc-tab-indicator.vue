@@ -1,18 +1,30 @@
 <template>
-  <span class="mdc-tab-indicator" :class="cssClass">
+  <span class="mdc-tab-indicator vt-tab-indicator" :class="cssClass">
     <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline" :style="contentStyle"></span>
   </span>
 </template>
+<style lang="scss">
+@import "@material/tab-indicator/mixins";
+.vt-tab-indicator.vt-tab-indicator--raised{
+  @include mdc-tab-indicator-underline-color(on-primary);
+  @include mdc-tab-indicator-icon-color(on-secondary);
+}
+</style>
+
 <script lang="ts">
 import { Component, Vue,Prop } from 'vue-property-decorator'
 import {MDCTabIndicator,MDCTabIndicatorFoundation,MDCSlidingTabIndicatorFoundation, MDCTabIndicatorAdapter} from '@material/tab-indicator/index'
 import {VuterialSlidingTabIndicatorFoundation} from './vuterial-sliding-tab-indicator-foundation'
 @Component({})
 export default class MdcTabIndicator extends Vue{
+  @Prop({default:false,type:Boolean}) raised!:boolean
   mdcTabIndicator?:MDCTabIndicator
   
   mounted(){
     this.cssClass = {}
+    if(this.raised){
+      this.addCssClass('vt-tab-indicator--raised')
+    }
     this.contentStyle = {}
   }
   activate(){

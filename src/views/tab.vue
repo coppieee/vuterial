@@ -9,9 +9,16 @@
     </mdc-tab-bar>
     <div>selectedIndex:{{tabIndex}}</div>
 
+    <mdc-subtitle1>raised line</mdc-Subtitle1>
+    <mdc-tab-bar class="demo-tab">
+      <mdc-tab raised active>home</mdc-tab>
+      <mdc-tab raised>Merchandise</mdc-tab>
+      <mdc-tab raised>About us</mdc-tab>
+    </mdc-tab-bar>
+
     <mdc-subtitle1>icon tab</mdc-Subtitle1>
     <mdc-tab-bar class="demo-tab">
-      <mdc-tab icon="access_time" :active="true">recents</mdc-tab>
+      <mdc-tab icon="access_time" active>recents</mdc-tab>
       <mdc-tab icon="near_me">nearby</mdc-tab>
       <mdc-tab icon="favorites">favorites</mdc-tab>
     </mdc-tab-bar>
@@ -28,15 +35,15 @@
       <mdc-tab active>tab one</mdc-tab>
       <mdc-tab>tab two</mdc-tab>
       <mdc-tab>tab tree</mdc-tab>
-      <mdc-tab>tab tree</mdc-tab>
-      <mdc-tab>tab tree</mdc-tab>
-      <mdc-tab>tab tree</mdc-tab>
-      <mdc-tab>tab tree</mdc-tab>
-      <mdc-tab>tab tree</mdc-tab>
-      <mdc-tab>tab tree</mdc-tab>
+      <mdc-tab>tab 5</mdc-tab>
+      <mdc-tab>tab 6</mdc-tab>
+      <mdc-tab>tab 7</mdc-tab>
+      <mdc-tab>tab 8</mdc-tab>
+      <mdc-tab>tab 9</mdc-tab>
+      <mdc-tab>tab 10</mdc-tab>
     </mdc-tab-bar>
 
-    <mdc-subtitle1>router-link tab</mdc-Subtitle1>
+    <mdc-subtitle1>a tab</mdc-Subtitle1>
     <mdc-tab-bar class="demo-tab">
       <mdc-tab tag="a" href="https://www.npmjs.com/package/vuterial" target="_blank">npm</mdc-tab>
       <mdc-tab tag="a" href="https://github.com/coppieee/vuterial" target="_blank">github</mdc-tab>
@@ -45,9 +52,9 @@
 
     <mdc-subtitle1>router-link tab</mdc-Subtitle1>
     <mdc-tab-bar class="demo-tab">
-      <mdc-tab to="/tab/1">home</mdc-tab>
-      <mdc-tab to="/tab/2">Merchandise</mdc-tab>
-      <mdc-tab to="/tab/3">About us</mdc-tab>
+      <mdc-tab to="/tab/1">/tab/1</mdc-tab>
+      <mdc-tab to="/tab/2">/tab/2</mdc-tab>
+      <mdc-tab to="/tab/3">/tab/3</mdc-tab>
     </mdc-tab-bar>
   </div>
 </template>
