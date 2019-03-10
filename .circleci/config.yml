@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: Run lints
-          command: npm lint
+          command: npm run lint-production
 
       - save_cache:
           paths:

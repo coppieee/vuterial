@@ -22,7 +22,6 @@ export default class MdcRipple extends Vue{
   ripple?:MDCRipple
   mounted(){
     if(this.js){
-      console.log('mounted image list item')
       this.ripple= new MDCRipple(this.$el as Element)
     }
   }

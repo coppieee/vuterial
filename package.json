@@ -1,6 +1,6 @@
 {
   "name": "vuterial",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "Vue Components  Material Components for the Web",
   "main": "dist/vuterial.common.js",
   "typings": "dist/types/index.d.ts",
@@ -32,6 +32,7 @@
     "build-type": "tsc --emitDeclarationOnly --declaration -P tsconfig.types.json",
     "build-bundle": "run-s build-lib build-type",
     "lint": "vue-cli-service lint",
+    "lint-production":"vue-cli-service lint --mode production",
     "precommit": "lint-staged",
     "serve": "vue-cli-service serve",
     "test:unit": "vue-cli-service test:unit"

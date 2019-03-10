@@ -25,19 +25,15 @@ export default class MdcChipSet extends Vue{
 
   onInteraction(e:Event):void{
     this.$emit('MDCChip:interaction',e)
-    // console.log('onInteracton',e)
   }
   onSelection(e:Event):void{
     this.$emit('MDCChip:selection',e)
-    // console.log('onSelection',e)
   }
   onRemoval(e:Event):void{
     this.$emit('MDCChip:removal',e)
-    // console.log('onRemoval',e)
   }
   mounted(){
     if(this.js){
-      console.log('mounted chip')
       this.chipSet = new MDCChipSet(this.$el)
       this.chipSet.listen('MDCChip:interaction',e=>this.onInteraction(e))
       this.chipSet.listen('MDCChip:selection',(e)=>this.onSelection(e))
