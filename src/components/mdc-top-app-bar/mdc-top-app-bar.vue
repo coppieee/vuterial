@@ -1,5 +1,5 @@
 <template>
-  <component :is="tag" class="mdc-top-app-bar" ref="topAppBar"
+  <component :is="tag" class="mdc-top-app-bar"
   :class="{
     'mdc-top-app-bar--short':short,
     'mdc-top-app-bar--short-collapsed':shortCollapsed,
@@ -35,13 +35,12 @@ export default class MdcTopAppBar extends Vue{
   @Prop({default:false,type:Boolean})
   dense!:boolean
 
-  topAppBar!:MDCTopAppBar
+  topAppBar_!:MDCTopAppBar
   mounted(){
-    const topAppBarElement = this.$refs.topAppBar as Element
-    this.topAppBar = new MDCTopAppBar(topAppBarElement)
+    this.topAppBar_ = new MDCTopAppBar(this.$el)
   }
   beforeDestroy() {
-    this.topAppBar.destroy()
+    this.topAppBar_.destroy()
   }
 }
 </script>

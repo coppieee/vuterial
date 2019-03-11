@@ -1,7 +1,7 @@
 <template>
   <mdc-app :drawerType="drawerType">
     <template #top-app-bar>
-      <mdc-top-app-bar :fixed="true">
+      <mdc-top-app-bar>
         <mdc-top-app-bar-section align-start>
           <mdc-top-app-bar-action-item @click.native="drawerOpen = !drawerOpen">menu</mdc-top-app-bar-action-item>
           <mdc-top-app-bar-title>Vuterial</mdc-top-app-bar-title>

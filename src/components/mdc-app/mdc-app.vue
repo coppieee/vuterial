@@ -1,9 +1,10 @@
 <template>
   <div class="vt-app" v-if="currentDrawerType === 'modal'">
-    <div class="vt-scrollable">
+    <div>
       <slot name="top-app-bar"/>
-      <div class="mdc-top-app-bar--fixed-adjust" key="mdc-top-app-bar--fixed-adjust"></div>
-      <slot name="contents"/>
+      <div class="mdc-top-app-bar--fixed-adjust">
+        <slot name="contents"/>
+      </div>
     </div>
     <div class="vt-modal-drawer-container">
       <slot name="drawer"/>
