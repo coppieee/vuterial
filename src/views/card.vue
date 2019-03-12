@@ -29,6 +29,9 @@
     <mdc-card class="demo-card">
       <template #body>body only</template>
     </mdc-card>
+    <mdc-card class="demo-card">
+      custom
+    </mdc-card>
     <mdc-card class="demo-card" outlined>
       <template #body>outlined card</template>
     </mdc-card>
