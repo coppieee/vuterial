@@ -103,7 +103,6 @@ export default class MdcTabbar extends Vue{
 
   @Watch('$route') onChangeRoute_(){
     if(this.isLinkSameRouter_){
-      console.log('mdc-tab $route changed this active')
       if(this.tabFoundation_ !== undefined){
         this.tabFoundation_.handleClick()
       }
