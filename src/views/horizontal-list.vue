@@ -1,7 +1,9 @@
 <template>
   <div>
+    <mdc-headline2>Horizontal list</mdc-headline2>
+    <div>横方向にスライドするリスト。Vuterialオリジナル。</div>
     <mdc-subtitle1>item width 30%</mdc-subtitle1>
-    <vt-horizontal-list class="doc-contents" scroll-bar>
+    <vt-horizontal-list class="doc-contents">
       <vt-horizontal-list-item v-for="id in times_(30)" :key="id" class="doc-h-list-item doc-h-list-item-30">
         <mdc-card class="doc-card doc-card-30" >
           <mdc-ripple class="doc-card__contents" @click="clickId=id">
@@ -20,9 +22,9 @@
         </mdc-card>
       </vt-horizontal-list-item>
     </vt-horizontal-list>
-    
-    <mdc-subtitle1>:custom-scroll-bar="false" :mouse-scroll="false"</mdc-subtitle1>
-    <vt-horizontal-list class="doc-contents" :custom-scroll-bar="false" :mouse-scroll="false">
+
+    <mdc-subtitle1>scroll-bar </mdc-subtitle1>
+    <vt-horizontal-list class="doc-contents" scroll-bar>
       <vt-horizontal-list-item v-for="id in times_(7)" :key="id" class="doc-h-list-item doc-h-list-item-30">
         <mdc-card class="doc-card doc-card-30">
           item {{id}}
@@ -30,8 +32,8 @@
       </vt-horizontal-list-item>
     </vt-horizontal-list>
 
-    <mdc-subtitle1>:scroll-bar="false" </mdc-subtitle1>
-    <vt-horizontal-list class="doc-contents" :scroll-bar="false">
+    <mdc-subtitle1>scroll-bar :custom-scroll-bar="false" :mouse-scroll="false"</mdc-subtitle1>
+    <vt-horizontal-list class="doc-contents" scroll-bar :custom-scroll-bar="false" :mouse-scroll="false">
       <vt-horizontal-list-item v-for="id in times_(7)" :key="id" class="doc-h-list-item doc-h-list-item-30">
         <mdc-card class="doc-card doc-card-30">
           item {{id}}

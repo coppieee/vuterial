@@ -89,7 +89,7 @@ export default class VtHorizontalList extends Vue{
   @Prop({default:'div'}) tag!:string
   @Prop({default:-1}) maxScroll!:number
   @Prop({default:true,type:Boolean}) customScrollBar!:boolean
-  @Prop({default:true,type:Boolean}) scrollBar!:boolean
+  @Prop({default:false,type:Boolean}) scrollBar!:boolean
   // @Prop({default:'move',type:String}) scrollBarVisibleType!:'always'|'move'
   @Prop({default:true,type:Boolean}) mouseScroll!:boolean
   @Prop({default:true,type:Boolean}) touchScroll!:boolean
