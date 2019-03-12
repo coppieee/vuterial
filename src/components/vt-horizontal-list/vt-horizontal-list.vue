@@ -280,16 +280,18 @@ export default class VtHorizontalList extends Vue{
   }
   mounted(){
     window.addEventListener('mouseup',this.mouseupWindow_)
-    this.$el.addEventListener('touchstart',this.touchstart_,{passive:false})
-    this.$el.addEventListener('touchmove',this.touchmove_,{passive:false})
-    this.$el.addEventListener('touchend',this.touchendListener_,{passive:false})
+    const el = this.$el as HTMLElement
+    el.addEventListener('touchstart',this.touchstart_,{passive:false})
+    el.addEventListener('touchmove',this.touchmove_,{passive:false})
+    el.addEventListener('touchend',this.touchendListener_,{passive:false})
     this.scrollLeftToItemIndex(this.scrollLeftIndex)
   }
   beforeDestroy(){
     window.removeEventListener('mouseup',this.mouseupWindow_)
-    this.$el.removeEventListener('touchstart',this.touchstart_)
-    this.$el.removeEventListener('touchmove',this.touchmove_)
-    this.$el.removeEventListener('touchend',this.touchendListener_)
+    const el = this.$el as HTMLElement
+    el.removeEventListener('touchstart',this.touchstart_)
+    el.removeEventListener('touchmove',this.touchmove_)
+    el.removeEventListener('touchend',this.touchendListener_)
   }
 }
 </script>
