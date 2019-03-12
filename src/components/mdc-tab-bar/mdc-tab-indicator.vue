@@ -27,7 +27,9 @@ export default class MdcTabIndicator extends Vue{
     const {width} = this.$el.getBoundingClientRect()
     const xPosition = to*width
     // console.log('xPosition',xPosition)
+    this.addCssClass(MDCTabIndicatorFoundation.cssClasses.NO_TRANSITION)
     this.setContentStyleProperty('transform', `translateX(${xPosition}px`)
+    
   }
 
   mounted(){

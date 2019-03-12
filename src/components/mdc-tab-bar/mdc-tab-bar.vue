@@ -21,7 +21,7 @@ import MdcTab from './mdc-tab.vue'
 @Component({})
 export default class MdcTopAppBar extends Vue{
   @Prop({default:false,type:Boolean}) stacked!:boolean
-  @Prop({default:true,type:Boolean})js!:boolean
+  @Prop({default:true,type:Boolean}) js!:boolean
 
   @Prop({default:-1,type:Number}) activeTabIndex!:number
 
