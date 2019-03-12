@@ -18,14 +18,16 @@ import {MDCTabBar, MDCTabBarFoundation, MDCTabBarAdapter} from '@material/tab-ba
 import {MDCTab, MDCTabFoundation} from '@material/tab/index'
 import {VuterialTabBarFoundation} from './vuterial-tab-bar-foundation'
 import MdcTab from './mdc-tab.vue'
+import {ScrollState} from '@/components/vt-horizontal-list/'
 @Component({})
 export default class MdcTopAppBar extends Vue{
   @Prop({default:false,type:Boolean}) stacked!:boolean
   @Prop({default:true,type:Boolean}) js!:boolean
 
-  @Prop({default:-1,type:Number}) activeTabIndex!:number
+  // @Prop({default:-1,type:Number}) activeTabIndex!:number
+  // @Prop({default:0,type:Number}) scrollMoveRate!:number
 
-  @Prop({default:0,type:Number}) scrollMoveRate!:number
+  @Prop({default:()=>({type:'',from:'',index:-1,moveRate:0}) }) scrollState!:ScrollState
 
   tabbar_?:MDCTabBar
   tabbarFoundation_?:VuterialTabBarFoundation
@@ -35,27 +37,46 @@ export default class MdcTopAppBar extends Vue{
       'vt-tab-bar--raised':false,
     }
   }
-  @Watch('scrollMoveRate') onScrollMoveRate_(to:number,from:number){
-    // console.log('on scrollMoveRate',to)
-    (this.$children[this.activeTabIndex] as MdcTab)
-      .tabIndicator
-      .onScrollMoveRate_(to)
-  }
-  @Watch('activeTabIndex') onActiveTabIndex_(to:number,from:number){
-    if(to === from){return}
-    if(to <= -1){return}
-    // if(to === this.tabbar_.)
-    if(this.tabbar_ === undefined || this.tabbarFoundation_ === undefined){return}
-    const prevIndex = this.tabbarFoundation_.getPreviousActiveTabIndex()
-    if(prevIndex === to){return}
-    this.tabbar_.activateTab(to)
+  activeTabIndex_:number = -1
+  // @Watch('scrollMoveRate') onScrollMoveRate_(to:number,from:number){
+  //   if(this.activeTabIndex <= -1){return}
+  //   (this.$children[this.activeTabIndex] as MdcTab)
+  //     .tabIndicator
+  //     .onScrollMoveRate_(to)
+  // }
+  // @Watch('activeTabIndex') onActiveTabIndex_(to:number,from:number){
+  //   if(to === from){return}
+  //   if(to <= -1){return}
+  //   if(this.tabbar_ === undefined || this.tabbarFoundation_ === undefined){return}
+  //   const prevIndex = this.tabbarFoundation_.getPreviousActiveTabIndex()
+  //   if(prevIndex === to){return}
+  //   this.tabbar_.activateTab(to)
+  // }
+  @Watch('scrollState') onScrollState_(state:ScrollState){
+    if(state.type === 'update-index'){
+      this.activeTabIndex_ = state.index
+      if(this.tabbar_ === undefined || this.tabbarFoundation_ === undefined){return}
+      if(state.index === this.tabbarFoundation_.getPreviousActiveTabIndex()){ return}
+      this.tabbar_.activateTab(state.index)
+    }else if(state.type === 'update-move-rate'){
+      if(this.activeTabIndex_ <= -1){return}
+      (this.$children[this.activeTabIndex_] as MdcTab)
+        .tabIndicator
+        .onScrollMoveRate_(state.moveRate)
+    }
   }
   private activateListener_ = (e:Event):void=>this.activate_(e)
   private activate_(e:Event){
     const ce = e as CustomEvent
     const index:number = ce.detail.index
-    this.$emit('update:activeTabIndex',index)
+    // this.$emit('update:activeTabIndex',index)
     this.$emit('activate',{index})
+    this.$emit('update:scrollState',{
+      index,
+      type:'update-index',
+      from:'tab-bar',
+      moveRate:0,
+    } as ScrollState)
   }
   mounted() {
     if(this.js){
@@ -78,7 +99,19 @@ export default class MdcTopAppBar extends Vue{
         return new MDCTab(el)
       })
       this.tabbar_.listen('MDCTabBar:activated',this.activateListener_)
+      const prevIndex = foundation.getPreviousActiveTabIndex()
+      if(prevIndex >= 0){
+        // this.$emit('update:activeTabIndex',prevIndex)
+        this.$emit('update:scrollState',{
+          from:'tab-bar',
+          type:'init-index',
+          index:prevIndex,
+          moveRate:0,
+        }as ScrollState)
+      }
+      // console.log('prevIndex',prevIndex)
     }
+    
   }
   beforeDestroy() {
     if(this.tabbar_ !== undefined){

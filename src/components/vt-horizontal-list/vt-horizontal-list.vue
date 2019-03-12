@@ -82,9 +82,11 @@
 }
 </style>
 <script lang="ts">
+
 import { Component, Prop, Vue,Watch} from 'vue-property-decorator'
+import {ScrollState} from './index'
 interface ScreenPoint{screenX:number,screenY:number}
-@Component({})
+@Component<VtHorizontalList>({})
 export default class VtHorizontalList extends Vue{
   @Prop({default:'div'}) tag!:string
   @Prop({default:-1}) maxScroll!:number
@@ -94,10 +96,11 @@ export default class VtHorizontalList extends Vue{
   @Prop({default:true,type:Boolean}) mouseScroll!:boolean
   @Prop({default:true,type:Boolean}) touchScroll!:boolean
   @Prop({default:true,type:Boolean}) scroll!:boolean
-  @Prop({default:0,type:Number}) scrollLeftIndex!:number
   scrollLeftIndex_:number = 0
   scrollLeftRect_:{left:number,width:number} = {left:0,width:0}
-  @Prop({default:0,type:Number}) scrollMoveRate!:number
+
+  @Prop({default:()=>({type:'',from:'',index:-1,moveRate:0}) }) scrollState!:ScrollState
+
   get eventGuardCssClass_(){
     return {
       'vt-horizontal-list__event-guard--moving':this.touchmoving_,
@@ -117,11 +120,16 @@ export default class VtHorizontalList extends Vue{
   get scrollAreaRef_(){
     return this.$refs.scrollArea as Element
   }
-  @Watch('scrollLeftIndex') async onScrollLeftIndex_(to:number,from:number){
-    if(to === -1){return}
-    if(to === from){return}
-    // this.scrollLeftIndex_ = to
-    await this.scrollLeftToItemIndex(to)
+  @Watch('scrollState') async onScrollState(state:ScrollState){
+    if(state.type === 'init-index'){
+      await this.scrollLeftToItemIndex(state.index,false)
+    }
+    else if(state.type === 'update-index'){
+      if(this.scrollLeftIndex_ === state.index){ return}
+      await this.scrollLeftToItemIndex(state.index)
+    }else if(state.type === 'update-move-rate'){
+      // skip
+    }
   }
   touchmoving_:boolean = false
   touchStartScreenX_:number = 0
@@ -163,7 +171,6 @@ export default class VtHorizontalList extends Vue{
     const time = Date.now()
     const index = this.scrollLeftIndex_
     const move = currentScreenX - this.touchStartScreenX_
-    // console.log('move',move)
     let scrollMoveRate = -move/this.scrollLeftRect_.width
     if(index +scrollMoveRate < 0){
       scrollMoveRate = 0
@@ -171,13 +178,18 @@ export default class VtHorizontalList extends Vue{
     if(index + scrollMoveRate +1> this.$children.length){
       scrollMoveRate = this.$children.length -index -1
     }
-    // console.log('scrollRate',scrollRate)
     this.touchmoveSpeed_ = (currentScreenX - this.touchmoveScreenX_) / (time - this.touchmoveTime_)
     this.touchmoveScreenX_ = currentScreenX
     this.touchmoveTime_ = time
     this.scrollAreaRef_.scrollLeft = this.touchStartScrollLeft_ - move
 
     this.$emit('update:scrollMoveRate',scrollMoveRate)
+    this.$emit('update:scrollState',{
+      from:'horizontal-list',
+      index,
+      moveRate:scrollMoveRate,
+      type:'update-move-rate',
+    }as ScrollState)
   }
   async touchEndItem_(event:Event){
     if(!this.isHorizontalMove_){ return }
@@ -208,34 +220,49 @@ export default class VtHorizontalList extends Vue{
       if( rect.left - rect.width/2 < targetScrollLeft && targetScrollLeft <= rect.left + rect.width/2){
         if(this.scrollLeftIndex_ === i){
           this.$emit('update:scrollMoveRate',0)
+          const state:ScrollState = {
+            from:'horizontal-list',
+            index:i,
+            type:'update-move-rate',
+            moveRate:0,
+          }
+          this.$emit('update:scrollState',state)
         }
         this.$emit('update:scrollLeftIndex',i)
+        this.$emit('update:scrollState',{
+          from:'horizontal-list',
+          index:i,
+          type:'update-index',
+          moveRate:0,
+        } as ScrollState)
         await this.scrollLeftToItemIndex(i)
         break
       }
     }
     this.touchmoving_ = false
-    // this.scrollLeftIndex_ = index
-    
   }
-  async scrollLeftToItemIndex(index:number){
+  async scrollLeftToItemIndex(index:number,transition:boolean = true){
     const prevScrollLeft = this.scrollAreaRef_.scrollLeft
     const {left} = this.scrollAreaRef_.getBoundingClientRect()
-    const rect = [this.$children[index]]
-      .map(x=>x.$el.getBoundingClientRect())
-      .map(x=>({
-        left:x.left - left + prevScrollLeft,
-        width:x.width,
-      }))[0]
+    const child = this.$children[index]
+    if(child === undefined){
+      throw new Error(`vt-horizontal-list index:${index} child is undefined`)
+    }
+    const childRect = child.$el.getBoundingClientRect()
+    const rect = {
+      left:childRect.left - left + prevScrollLeft,
+      width:childRect.width,
+    }
     this.scrollLeftRect_ = rect
     this.scrollLeftIndex_ = index
     const diff = rect.left - prevScrollLeft
-    const max = 15
+    const max = transition ? 15:0
     for(let i=0;i<max;i++){
-      await new Promise(resolve=>setTimeout(resolve,17))
-      const t = (i+1)/max
+      const t = (i)/max
       this.scrollAreaRef_.scrollLeft = prevScrollLeft + diff * t*(2-t)
+      await new Promise(resolve=>setTimeout(resolve,17))
     }
+    this.scrollAreaRef_.scrollLeft = prevScrollLeft + diff
   }
   
   touchstart_(e:TouchEvent){
@@ -284,7 +311,6 @@ export default class VtHorizontalList extends Vue{
     el.addEventListener('touchstart',this.touchstart_,{passive:false})
     el.addEventListener('touchmove',this.touchmove_,{passive:false})
     el.addEventListener('touchend',this.touchendListener_,{passive:false})
-    this.scrollLeftToItemIndex(this.scrollLeftIndex)
   }
   beforeDestroy(){
     window.removeEventListener('mouseup',this.mouseupWindow_)

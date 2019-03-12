@@ -42,7 +42,7 @@ const configs:Config[] = [
       ['tab',Tab,{icon:'tab',path:'/tab/:id?',link:'/tab'}],
       ['typography',Typography,{icon:'text_format'}],
       ['ripple',Ripple,{icon:'touch_app'}],
-      ['Horizontal-list',HorizontalList,{icon:'list'}],
+      ['horizontal-list',HorizontalList,{icon:'list',path:'/horizontal-list/:id?',link:'/horizontal-list'}],
     ],
     sort:true,
   },

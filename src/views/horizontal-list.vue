@@ -14,6 +14,18 @@
     </vt-horizontal-list>
     <div>click:{{clickId}}</div>
 
+    <mdc-subtitle1>item width 30%</mdc-subtitle1>
+    <vt-horizontal-list class="doc-contents">
+      <vt-horizontal-list-item v-for="id in times_(2)" :key="id" class="doc-h-list-item doc-h-list-item-30">
+        <mdc-card class="doc-card doc-card-30" >
+          <mdc-ripple class="doc-card__contents" @click="clickId=id">
+          item {{id}}
+          </mdc-ripple>
+        </mdc-card>
+      </vt-horizontal-list-item>
+    </vt-horizontal-list>
+    <div>click:{{clickId}}</div>
+
     <mdc-subtitle1>item width 100%</mdc-subtitle1>
     <vt-horizontal-list class="doc-contents" >
       <vt-horizontal-list-item v-for="id in times_(5)" :key="id" class="doc-h-list-item doc-h-list-item-100">
@@ -44,15 +56,14 @@
     <mdc-subtitle1>sync tab</mdc-subtitle1>
     <div class="doc-contents">
       <mdc-tab-bar ref="tabBar"
-        :active-tab-index.sync="activeTabIndex"
-        :scroll-move-rate="scrollMoveRate">
-        <mdc-tab active>tab 0</mdc-tab>
-        <mdc-tab>tab 1</mdc-tab>
-        <mdc-tab>tab 2</mdc-tab>
+        :scroll-state.sync="scrollState">
+        <mdc-tab to="/horizontal-list/0">tab 0</mdc-tab>
+        <mdc-tab to="/horizontal-list/1">tab 1</mdc-tab>
+        <mdc-tab to="/horizontal-list/2">tab 2</mdc-tab>
       </mdc-tab-bar>
       <vt-horizontal-list class="doc-list" 
-        :scroll-left-index.sync="activeTabIndex"
-        :scroll-move-rate.sync="scrollMoveRate">
+        :scroll-state.sync="scrollState"
+        >
         <vt-horizontal-list-item v-for="id in times_(3)" :key="id" class="doc-h-list-item doc-h-list-item-100">
           <mdc-card class="doc-card doc-card-100">
             item {{id}}
@@ -60,20 +71,18 @@
         </vt-horizontal-list-item>
       </vt-horizontal-list>
     </div>
-    <div>activeTabIndex: {{activeTabIndex}}</div>
-    <!-- <div>scrollMoveRate:{{scrollMoveRate}}</div> -->
 
     <mdc-subtitle1>sync tab :scroll="false</mdc-subtitle1>
     <div class="doc-contents">
       <mdc-tab-bar ref="tabBar"
-        :active-tab-index.sync="activeTabIndex2" 
+        :scroll-state.sync="scrollState2"
         >
         <mdc-tab active>tab 0</mdc-tab>
         <mdc-tab>tab 1</mdc-tab>
         <mdc-tab>tab 2</mdc-tab>
       </mdc-tab-bar>
       <vt-horizontal-list class="doc-list" 
-        :scroll-left-index.sync="activeTabIndex2"
+        :scroll-state.sync="scrollState2"
         :scroll="false"
         >
         <vt-horizontal-list-item v-for="id in times_(3)" :key="id" class="doc-h-list-item doc-h-list-item-100">
@@ -116,12 +125,13 @@
 </style>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import { ScrollState } from '@/components/vt-horizontal-list'
 
 @Component<HorizontalList>({})
 export default class HorizontalList extends Vue {
-  activeTabIndex:number = 0
-  scrollMoveRate:number = 0
-  activeTabIndex2:number = 0
+  scrollState:ScrollState = {type:'',from:'',index:0,moveRate:0}
+  scrollState2:ScrollState = {type:'',from:'',index:0,moveRate:0}
+  // activeTabIndex2:number = 0
   clickId:number = -1
   times_(count:number):number[]{
     const xs:number[] = []
