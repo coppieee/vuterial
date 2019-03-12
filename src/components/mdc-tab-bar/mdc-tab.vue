@@ -1,8 +1,8 @@
 <template>
-  <component :is="currentTag"
+  <component :is="currentTag_"
     :to="to"
     class="mdc-tab vt-tab"
-    :class="cssClass" role="tab" :aria-selected="areaSelected" :tabIndex="tabIndex">
+    :class="cssClass_" role="tab" :aria-selected="areaSelected" :tabIndex="tabIndex">
     <span class="mdc-tab__content">
       <span v-if="icon" class="mdc-tab__icon material-icons" aria-hidden="true">{{icon}}</span>
       <span class="mdc-tab__text-label">
@@ -24,7 +24,7 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue,Prop } from 'vue-property-decorator'
+import { Component, Vue,Prop,Watch } from 'vue-property-decorator'
 import {MDCTab, MDCTabFoundation, MDCTabAdapter} from '@material/tab/index'
 import MdcTabIndicator from '@/components/mdc-tab-bar/mdc-tab-indicator.vue'
 import { MDCTabIndicator } from '@material/tab-indicator/index'
@@ -40,6 +40,9 @@ export default class MdcTabbar extends Vue{
   @Prop({default:false,type:Boolean}) raised!:boolean
   active_:boolean = false
 
+  get tabIndicator():MdcTabIndicator{
+    return this.$refs.tabIndicator as MdcTabIndicator
+  }
   areaSelected = 'false'
   tabIndex = '0'
   /**
@@ -85,20 +88,29 @@ export default class MdcTabbar extends Vue{
     }
     tab.initialize(undefined,tabFactory)
     
-    // tab.focusOnActivate
     
     tab.listen('MDCTab:interacted',(e)=>{
-      // console.log('lis',e)
     })
-    this.mdcTab = tab
+    this.mdcTab_ = tab
+    this.tabFoundation_ = tabFoundation
     return tab
   }
   mdcTabActive():boolean{
     return this.hasCssClass('mdc-tab--active')
   }
-  mdcTab?:MDCTab
+  mdcTab_?:MDCTab
+  tabFoundation_?:MDCTabFoundation
+
+  @Watch('$route') onChangeRoute_(){
+    if(this.isLinkSameRouter_){
+      console.log('mdc-tab $route changed this active')
+      if(this.tabFoundation_ !== undefined){
+        this.tabFoundation_.handleClick()
+      }
+    }
+  }
   mounted(){
-    this.cssClass = {}
+    this.cssClass_ = {}
     if(this.stacked){
       this.addCssClass('mdc-tab--stacked')
     }
@@ -106,34 +118,46 @@ export default class MdcTabbar extends Vue{
       this.addCssClass('vt-tab--raised')
     }
     this.active_ = this.active
-    if(this.activateOnLink && this.to !== undefined){
-      const {route} = this.$router.resolve(this.to)
-      if(route.path === this.$route.path ){
-        this.active_ = true
-      }
+    // if(this.activateOnLink && this.to !== undefined){
+    //   const {route} = this.$router.resolve(this.to)
+    //   if(route.path === this.$route.path ){
+    //     this.active_ = true
+    //   }
+    // }
+    if(this.isLinkSameRouter_){
+      this.active_ = true
     }
     if(this.active_){
       this.addCssClass('mdc-tab--active')
     }
 
   }
+  get isLinkSameRouter_(){
+    if(this.activateOnLink && this.to !== undefined){
+      const {route} = this.$router.resolve(this.to)
+      if(route.path === this.$route.path ){
+        return true
+      }
+    }
+    return false
+  }
   beforeDestroy(){
   }
-  private get currentTag(){
+  get currentTag_(){
     if(this.to !== undefined){return 'router-link'}
     return this.tag
   }
-  cssClass:{[key:string]:boolean} = {}
+  cssClass_:{[key:string]:boolean} = {}
   addCssClass(className:string){
-    this.$set(this.cssClass,className,true)
+    this.$set(this.cssClass_,className,true)
     // this.$forceUpdate()
   }
   removeCssClass(className:string){
-    this.cssClass[className] = false
+    this.cssClass_[className] = false
     // this.$forceUpdate()
   }
   hasCssClass(className:string):boolean{
-    return this.cssClass[className] === true
+    return this.cssClass_[className] === true
   }
 }
 </script>

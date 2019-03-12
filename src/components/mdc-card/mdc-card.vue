@@ -1,6 +1,6 @@
 <template>
   <div class="mdc-card" :class="{'mdc-card--outlined':outlined}">
-    <div class="mdc-card__primary-action" :tabindex="tabindex">
+    <div class="mdc-card__primary-action vt-card__primary-action" :tabindex="tabindex">
       <div v-if="mediaSrc!== undefined" 
         class="mdc-card__media"
         :class="{
@@ -11,27 +11,27 @@
         :style="{'background-img':'url('+mediaSrc+')'}"
       >
       </div>
-      <div class="vuterial-card-primary">
-        <mdc-headline6 class="vuterial-card-title" v-if="hasSlot('title')">
+      <div class="vt-card-primary">
+        <mdc-headline6 class="vt-card-title" v-if="hasSlot('title')">
           <slot name="title"/>
         </mdc-headline6>
-        <mdc-subtitle2 class="vuterial-card-subtitle"
-          :class="{'vuterial-card-theme-text-secondary':themeTextSecondary}"
+        <mdc-subtitle2 class="vt-card-subtitle"
+          :class="{'vt-card-theme-text-secondary':themeTextSecondary}"
           v-if="hasSlot('subtitle')">
           <slot name="subtitle"/>
         </mdc-subtitle2>
-        <mdc-body2 v-if="_isPrimaryBody" class="vuterial-card-body">
+        <mdc-body2 v-if="_isPrimaryBody" class="vt-card-body">
           <slot name="body"/>
         </mdc-body2>
+        <slot/>
       </div>
-      <div class="vuterial-card-secondary"
+      <div class="vt-card-secondary"
         v-if="!_isPrimaryBody && hasSlot('body')"
-        :class="{'vuterial-card-theme-text-secondary':themeTextSecondary}">
-        <mdc-body2 class="vuterial-card-body">
+        :class="{'vt-card-theme-text-secondary':themeTextSecondary}">
+        <mdc-body2 class="vt-card-body">
           <slot name="body"/>
         </mdc-body2>
       </div>
-      <slot/>
     </div>
     <div v-if="hasSlot('buttons') || hasSlot('icons')" class="mdc-card__actions">
       <div v-if="hasSlot('buttons')" class="mdc-card__action-buttons">
@@ -41,6 +41,7 @@
         <slot name="icons"/>
       </div>
     </div>
+
   </div>
 </template>
 <script lang="ts">
@@ -67,13 +68,17 @@ export default class MdcCard extends Vue{
 }
 </script>
 <style lang="postcss" scoped>
-.vuterial-card-primary{
+.vt-card-primary{
   padding: 1rem;
 }
-.vuterial-card-secondary{
+.vt-card__primary-action{
+  flex:1;
+}
+.vt-card-secondary{
   padding: 0 1rem 8px;
 }
-.vuterial-card-title{
+.
+.vt-card-title{
 
 }
 .vuterial-card-theme-text-secondary{

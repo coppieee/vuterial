@@ -12,7 +12,7 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue,Prop } from 'vue-property-decorator'
+import { Component, Vue,Prop,Watch } from 'vue-property-decorator'
 import {MDCTabIndicator,MDCTabIndicatorFoundation,MDCSlidingTabIndicatorFoundation, MDCTabIndicatorAdapter} from '@material/tab-indicator/index'
 import {VuterialSlidingTabIndicatorFoundation} from './vuterial-sliding-tab-indicator-foundation'
 @Component({})
@@ -20,6 +20,16 @@ export default class MdcTabIndicator extends Vue{
   @Prop({default:false,type:Boolean}) raised!:boolean
   mdcTabIndicator?:MDCTabIndicator
   
+  // @Prop({default:0,type:Number}) scrollMoveRate!:number
+
+  // @Watch('scrollMoveRate') 
+  onScrollMoveRate_(to:number){
+    const {width} = this.$el.getBoundingClientRect()
+    const xPosition = to*width
+    // console.log('xPosition',xPosition)
+    this.setContentStyleProperty('transform', `translateX(${xPosition}px`)
+  }
+
   mounted(){
     this.cssClass = {}
     if(this.raised){

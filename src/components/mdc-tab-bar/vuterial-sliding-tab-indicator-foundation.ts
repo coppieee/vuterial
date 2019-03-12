@@ -1,6 +1,6 @@
 import {MDCTabIndicatorFoundation} from '@material/tab-indicator/index'
 
-const timeout = (time:number)=> new Promise(resolve=> setTimeout(resolve,time))
+// const timeout = (time:number)=> new Promise(resolve=> setTimeout(resolve,time))
 const nexTick = ()=>new Promise(resolve=>requestAnimationFrame(resolve))
 export class VuterialSlidingTabIndicatorFoundation extends MDCTabIndicatorFoundation{
   async activate(previousIndicatorClientRect?: ClientRect) {

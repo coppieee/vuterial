@@ -5,14 +5,14 @@
     </i>
     <slot/>
     <span class="mdc-list-item__text">
-      <span v-if="hasSlot('primary')" class="mdc-list-item__primary-text">
+      <span v-if="hasSlot_('primary')" class="mdc-list-item__primary-text">
         <slot name="primary"/>
       </span>
-      <span v-if="hasSlot('secondary')" class="mdc-list-item__secondary-text">
+      <span v-if="hasSlot_('secondary')" class="mdc-list-item__secondary-text">
         <slot name="secondary"/>
       </span>
     </span>
-    <span v-if="hasSlot('meta')" class="mdc-list-item__meta" aria-hidden="true">
+    <span v-if="hasSlot_('meta')" class="mdc-list-item__meta" aria-hidden="true">
       <slot name="meta"/>
     </span>
   </component>
@@ -49,7 +49,7 @@ export default class MdcList extends Vue{
       'mdc-list-item--selected':this.selected,
     }
   }
-  hasSlot(name:string):boolean{
+  hasSlot_(name:string):boolean{
     return this.$slots[name] !== undefined
   }
 }

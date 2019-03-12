@@ -10,6 +10,7 @@ import List from './views/list.vue'
 import Tab from './views/tab.vue'
 import Typography from './views/typography.vue'
 import Ripple from './views/ripple.vue'
+import HorizontalList from './views/horizontal-list.vue'
 import { Component } from '@vue/test-utils'
 Vue.use(Router)
 interface Config{
@@ -41,6 +42,7 @@ const configs:Config[] = [
       ['tab',Tab,{icon:'tab',path:'/tab/:id?',link:'/tab'}],
       ['typography',Typography,{icon:'text_format'}],
       ['ripple',Ripple,{icon:'touch_app'}],
+      ['Horizontal-list',HorizontalList,{icon:'list'}],
     ],
     sort:true,
   },

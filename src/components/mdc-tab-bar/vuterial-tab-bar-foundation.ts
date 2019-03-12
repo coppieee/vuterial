@@ -4,6 +4,9 @@ export class VuterialTabBarFoundation extends MDCTabBarFoundation{
     super(adapter)
     
   }
+  getPreviousActiveTabIndex():number{
+    return this.adapter_.getPreviousActiveTabIndex()
+  }
   // copy from https://github.com/material-components/material-components-web/issues/4226
   activateTab(index:number){
     const previousActiveIndex = this.adapter_.getPreviousActiveTabIndex()

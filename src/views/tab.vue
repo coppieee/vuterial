@@ -56,6 +56,9 @@
       <mdc-tab to="/tab/2">/tab/2</mdc-tab>
       <mdc-tab to="/tab/3">/tab/3</mdc-tab>
     </mdc-tab-bar>
+    <mdc-button to="/tab/1">/tab/1</mdc-button>
+    <mdc-button to="/tab/2">/tab/2</mdc-button>
+    <mdc-button to="/tab/3">/tab/3</mdc-button>
   </div>
 </template>
 <style scoped>
