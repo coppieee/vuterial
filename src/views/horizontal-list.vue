@@ -3,11 +3,14 @@
     <mdc-subtitle1>item width 30%</mdc-subtitle1>
     <vt-horizontal-list class="doc-contents" scroll-bar>
       <vt-horizontal-list-item v-for="id in times_(30)" :key="id" class="doc-h-list-item doc-h-list-item-30">
-        <mdc-card class="doc-card doc-card-30">
+        <mdc-card class="doc-card doc-card-30" >
+          <mdc-ripple class="doc-card__contents" @click="clickId=id">
           item {{id}}
+          </mdc-ripple>
         </mdc-card>
       </vt-horizontal-list-item>
     </vt-horizontal-list>
+    <div>click:{{clickId}}</div>
 
     <mdc-subtitle1>item width 100%</mdc-subtitle1>
     <vt-horizontal-list class="doc-contents" >
@@ -97,15 +100,13 @@
 }
 .doc-card-30{
   margin:0.5rem;
-  
-}
-.doc-card-100{
 }
 .doc-h-list-item:nth-child(even) .doc-card{
   /* background-color:#eee; */
 }
 .doc-card__contents{
   height:100%;
+  width:100%;
 }
 .doc-h-list-item-100{
   width:100%;
@@ -119,6 +120,7 @@ export default class HorizontalList extends Vue {
   activeTabIndex:number = 0
   scrollMoveRate:number = 0
   activeTabIndex2:number = 0
+  clickId:number = -1
   times_(count:number):number[]{
     const xs:number[] = []
     for(let i=0;i<count;i++){

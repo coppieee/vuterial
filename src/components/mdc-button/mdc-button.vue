@@ -14,8 +14,7 @@
 import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import {MDCRipple} from '@material/ripple'
 
-import { VNode ,PropOptions } from 'vue'
-@Component({})
+@Component<MdcList>({})
 export default class MdcList extends Vue{
   @Prop({default:'button'}) tag!:string
   @Prop({default:undefined}) to?:string

@@ -1,9 +1,12 @@
 <template>
-  <component class="vt-horizontal-list" :class="cssClass_" :is="tag"
+  <component class="vt-horizontal-list" :is="tag"
     @mousedown="mousedown_"
     @mousemove="mousemove_"
     >
-    <slot/>
+    <div class="vt-horizontal-list__scroll-area" :class="cssClass_" ref="scrollArea">
+      <slot/>
+    </div>
+    <div class="vt-horizontal-list__event-guard" :class="eventGuardCssClass_"></div>
     <!-- <div class="vt-horizontal-list__contents">
       
     </div> -->
@@ -11,10 +14,19 @@
 </template>
 <style lang="postcss" scoped>
 .vt-horizontal-list{
-  overflow-x:auto;
+  position:relative;
   width:100%;
+  height:100%;
+}
+.vt-horizontal-list__scroll-area{
+  /* width:100%; */
+  /* height:100%; */
+  overflow-x:auto;
   display: flex;
   flex-direction: row;
+}
+.vt-horizontal-list--moving{
+  user-select: none;
 }
 .vt-horizontal-list--scroll-hidden{
   overflow-x:hidden;
@@ -56,11 +68,22 @@
 .vt-horizontal-list__contents{
 
 }
-.vt-horizontal-list--animated{
+.vt-horizontal-list__event-guard{
+  display: none;
+  position:absolute;
+  top:0;
+  left: 0;
+  width:100%;
+  height:100%;
+  /* background-color:rgba(0,0,0,.5) */
+}
+.vt-horizontal-list__event-guard--moving{
+  display:block;
 }
 </style>
 <script lang="ts">
 import { Component, Prop, Vue,Watch} from 'vue-property-decorator'
+interface ScreenPoint{screenX:number,screenY:number}
 @Component({})
 export default class VtHorizontalList extends Vue{
   @Prop({default:'div'}) tag!:string
@@ -75,6 +98,11 @@ export default class VtHorizontalList extends Vue{
   scrollLeftIndex_:number = 0
   scrollLeftRect_:{left:number,width:number} = {left:0,width:0}
   @Prop({default:0,type:Number}) scrollMoveRate!:number
+  get eventGuardCssClass_(){
+    return {
+      'vt-horizontal-list__event-guard--moving':this.touchmoving_,
+    }
+  }
   get cssClass_(){
     return {
       'vt-horizontal-list--scroll-hidden':!this.scroll,
@@ -85,6 +113,9 @@ export default class VtHorizontalList extends Vue{
   }
   get styles_(){
     return {}
+  }
+  get scrollAreaRef_(){
+    return this.$refs.scrollArea as Element
   }
   @Watch('scrollLeftIndex') async onScrollLeftIndex_(to:number,from:number){
     if(to === -1){return}
@@ -102,16 +133,37 @@ export default class VtHorizontalList extends Vue{
   beforeTouchMove_:boolean = false
   isHorizontalMove_:boolean = false
 
-  touchStartItem_({screenX,screenY}:{screenX:number,screenY:number}){
-    this.touchStartScrollLeft_ = this.$el.scrollLeft
+  updateIsHorizontalMove_({screenX,screenY}:ScreenPoint){
+    const diffX = Math.abs(screenX - this.touchStartScreenX_)
+    const diffY = Math.abs(screenY - this.touchStartScreenY_)
+    this.isHorizontalMove_ = diffX > diffY
+  }
+
+  touchStartItem_({screenX,screenY}:ScreenPoint){
+    this.beforeTouchMove_ = true
+    this.touchStartScrollLeft_ = this.scrollAreaRef_.scrollLeft
     this.touchStartScreenX_ = screenX
     this.touchStartScreenY_ = screenY
-    this.touchmoving_ = true
+    this.touchmoveSpeed_ = 0
+    // this.touchmoving_ = true
   }
-  touchmoveItem_(currentScreenX:number){
+  touchmoveItem_(event:Event,screenPoint:ScreenPoint){
+    if(this.beforeTouchMove_){
+      this.updateIsHorizontalMove_(screenPoint)
+      this.beforeTouchMove_ = false
+    }
+    if(!this.isHorizontalMove_){
+      return
+    }
+    if(event.cancelable){
+      event.preventDefault()
+    }
+    this.touchmoving_ = true
+    const currentScreenX = screenPoint.screenX
     const time = Date.now()
     const index = this.scrollLeftIndex_
     const move = currentScreenX - this.touchStartScreenX_
+    // console.log('move',move)
     let scrollMoveRate = -move/this.scrollLeftRect_.width
     if(index +scrollMoveRate < 0){
       scrollMoveRate = 0
@@ -123,14 +175,17 @@ export default class VtHorizontalList extends Vue{
     this.touchmoveSpeed_ = (currentScreenX - this.touchmoveScreenX_) / (time - this.touchmoveTime_)
     this.touchmoveScreenX_ = currentScreenX
     this.touchmoveTime_ = time
-    this.$el.scrollLeft = this.touchStartScrollLeft_ - move
+    this.scrollAreaRef_.scrollLeft = this.touchStartScrollLeft_ - move
 
     this.$emit('update:scrollMoveRate',scrollMoveRate)
   }
-  async touchEndItem_(){
-    
-    const prevScrollLeft = this.$el.scrollLeft
-    const {left} = this.$el.getBoundingClientRect()
+  async touchEndItem_(event:Event){
+    if(!this.isHorizontalMove_){ return }
+    if(event.cancelable){
+      event.preventDefault()
+    }
+    const prevScrollLeft = this.scrollAreaRef_.scrollLeft
+    const {left} = this.scrollAreaRef_.getBoundingClientRect()
     const rects = this.$children
       .map(x=>x.$el.getBoundingClientRect())
       .map(x=>({
@@ -138,7 +193,7 @@ export default class VtHorizontalList extends Vue{
         width:x.width,
       }))
     const v = this.touchmoveSpeed_
-    const innerWidth = this.$el.getBoundingClientRect().width
+    const innerWidth = this.scrollAreaRef_.getBoundingClientRect().width
     const rectWidth = rects[0].width
     const movePointScrollLeft = (prevScrollLeft -v * rectWidth * 2)
     let diffScrollLeft = movePointScrollLeft - this.touchStartScrollLeft_
@@ -164,8 +219,8 @@ export default class VtHorizontalList extends Vue{
     
   }
   async scrollLeftToItemIndex(index:number){
-    const prevScrollLeft = this.$el.scrollLeft
-    const {left} = this.$el.getBoundingClientRect()
+    const prevScrollLeft = this.scrollAreaRef_.scrollLeft
+    const {left} = this.scrollAreaRef_.getBoundingClientRect()
     const rect = [this.$children[index]]
       .map(x=>x.$el.getBoundingClientRect())
       .map(x=>({
@@ -179,7 +234,7 @@ export default class VtHorizontalList extends Vue{
     for(let i=0;i<max;i++){
       await new Promise(resolve=>setTimeout(resolve,17))
       const t = (i+1)/max
-      this.$el.scrollLeft = prevScrollLeft + diff * t*(2-t)
+      this.scrollAreaRef_.scrollLeft = prevScrollLeft + diff * t*(2-t)
     }
   }
   
@@ -188,7 +243,7 @@ export default class VtHorizontalList extends Vue{
     // if(e.cancelable){
     //   e.preventDefault()
     // }
-    this.beforeTouchMove_ = true
+    
     const touch = e.touches[0]
     this.touchStartItem_(touch)
   }
@@ -197,28 +252,14 @@ export default class VtHorizontalList extends Vue{
     if(!this.touchScroll || !this.scroll){return}
 
     const currentTouch = e.touches[0]
-    if(this.beforeTouchMove_){
-      const diffX = Math.abs(currentTouch.screenX - this.touchStartScreenX_)
-      const diffY = Math.abs(currentTouch.screenY - this.touchStartScreenY_)
-      this.isHorizontalMove_ = diffX > diffY
-      this.beforeTouchMove_ = false
-    }
-    if(!this.isHorizontalMove_){
-      return
-    }
-    if(e.cancelable){
-      e.preventDefault()
-    }
-    this.touchmoveItem_(currentTouch.screenX)
+    
+    this.touchmoveItem_(e,currentTouch)
   }
   touchendListener_ = (e:TouchEvent)=>{this.touchend_(e)}
   async touchend_(e:TouchEvent){
     if(!this.touchScroll || !this.scroll){return}
-    if(!this.isHorizontalMove_){ return }
-    if(e.cancelable){
-      e.preventDefault()
-    }
-    this.touchEndItem_()
+
+    this.touchEndItem_(e)
   }
   isMouseDown_:boolean = false
   mousedown_(e:MouseEvent){
@@ -229,23 +270,23 @@ export default class VtHorizontalList extends Vue{
   mousemove_(e:MouseEvent){
     if(!this.mouseScroll || !this.scroll){return}
     if(!this.isMouseDown_){ return }
-    this.touchmoveItem_(e.screenX)
+    this.touchmoveItem_(e,e)
   }
-  mouseup_(e:MouseEvent){
+  mouseupWindow_(e:MouseEvent){
     if(!this.mouseScroll || !this.scroll){return}
     if(!this.isMouseDown_){return}
-    this.touchEndItem_()
+    this.touchEndItem_(e)
     this.isMouseDown_ = false
   }
   mounted(){
-    window.addEventListener('mouseup',this.mouseup_)
+    window.addEventListener('mouseup',this.mouseupWindow_)
     this.$el.addEventListener('touchstart',this.touchstart_,{passive:false})
     this.$el.addEventListener('touchmove',this.touchmove_,{passive:false})
     this.$el.addEventListener('touchend',this.touchendListener_,{passive:false})
     this.scrollLeftToItemIndex(this.scrollLeftIndex)
   }
   beforeDestroy(){
-    window.removeEventListener('mouseup',this.mouseup_)
+    window.removeEventListener('mouseup',this.mouseupWindow_)
     this.$el.removeEventListener('touchstart',this.touchstart_)
     this.$el.removeEventListener('touchmove',this.touchmove_)
     this.$el.removeEventListener('touchend',this.touchendListener_)
