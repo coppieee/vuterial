@@ -1,6 +1,6 @@
 {
   "name": "vuterial",
-  "version": "0.1.16",
+  "version": "0.1.17",
   "description": "Vue Components  Material Components for the Web",
   "main": "dist/vuterial.common.js",
   "typings": "dist/types/index.d.ts",
