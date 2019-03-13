@@ -3,27 +3,24 @@
     @mousedown="mousedown_"
     @mousemove="mousemove_"
     >
-    <div class="vt-horizontal-list__scroll-area" :class="cssClass_" ref="scrollArea">
+    <div class="vt-horizontal-list__scroll-area" :class="cssClass_" ref="scrollArea" :style="styles_">
       <slot/>
     </div>
     <div class="vt-horizontal-list__event-guard" :class="eventGuardCssClass_"></div>
-    <!-- <div class="vt-horizontal-list__contents">
-      
-    </div> -->
   </component>
 </template>
 <style lang="postcss" scoped>
 .vt-horizontal-list{
   position:relative;
-  width:100%;
-  height:100%;
 }
 .vt-horizontal-list__scroll-area{
-  /* width:100%; */
-  /* height:100%; */
   overflow-x:auto;
   display: flex;
   flex-direction: row;
+}
+.vt-horizontal-list__scroll-area--fit-displayed-contents-height{
+  overflow-y:hidden;
+  transition:height 0.1s;
 }
 .vt-horizontal-list--moving{
   user-select: none;
@@ -54,10 +51,8 @@
   box-shadow: inset -1px -1px 0px rgba(0, 0, 0, 0.05), inset 1px 1px 0px rgba(0, 0, 0, 0.05);
 }
 .vt-hoeizontal-list__custom-scrollbar::-webkit-scrollbar-thumb {
-  /* height: 6px; */
   opacity: 0;
   transition: background-color 0.2s;
-  /* background-color:rgba(0,0,0,0); */
   background-clip: padding-box;
   border-radius: 7px;
 
@@ -75,7 +70,6 @@
   left: 0;
   width:100%;
   height:100%;
-  /* background-color:rgba(0,0,0,.5) */
 }
 .vt-horizontal-list__event-guard--moving{
   display:block;
@@ -96,6 +90,7 @@ export default class VtHorizontalList extends Vue{
   @Prop({default:true,type:Boolean}) mouseScroll!:boolean
   @Prop({default:true,type:Boolean}) touchScroll!:boolean
   @Prop({default:true,type:Boolean}) scroll!:boolean
+  @Prop({default:false,type:Boolean}) fitDisplayedContentsHeight!:boolean
   scrollLeftIndex_:number = 0
   scrollLeftRect_:{left:number,width:number} = {left:0,width:0}
 
@@ -106,19 +101,27 @@ export default class VtHorizontalList extends Vue{
       'vt-horizontal-list__event-guard--moving':this.touchmoving_,
     }
   }
+  get styles_(){
+    return {
+      height:this.height_==-1?'auto':this.height_ + 'px',
+    }
+  }
+  height_:number = -1
   get cssClass_(){
     return {
       'vt-horizontal-list--scroll-hidden':!this.scroll,
       'vt-horizontal-list--moving':this.touchmoving_,
       'vt-horizontal-list__scrollbar--hidden':!this.scrollBar,
       'vt-hoeizontal-list__custom-scrollbar':this.customScrollBar,
+      'vt-horizontal-list__scroll-area--fit-displayed-contents-height':this.fitDisplayedContentsHeight,
     }
   }
-  get styles_(){
-    return {}
-  }
   get scrollAreaRef_(){
-    return this.$refs.scrollArea as Element
+    const ref = this.$refs.scrollArea as HTMLElement
+    if(ref === undefined){
+      throw new Error('scrollArea is undefined.')
+    }
+    return ref
   }
   @Watch('scrollState') async onScrollState(state:ScrollState){
     if(state.type === 'init-index'){
@@ -156,6 +159,7 @@ export default class VtHorizontalList extends Vue{
     // this.touchmoving_ = true
   }
   touchmoveItem_(event:Event,screenPoint:ScreenPoint){
+    const time = Date.now()
     if(this.beforeTouchMove_){
       this.updateIsHorizontalMove_(screenPoint)
       this.beforeTouchMove_ = false
@@ -168,21 +172,21 @@ export default class VtHorizontalList extends Vue{
     }
     this.touchmoving_ = true
     const currentScreenX = screenPoint.screenX
-    const time = Date.now()
     const index = this.scrollLeftIndex_
     const move = currentScreenX - this.touchStartScreenX_
     let scrollMoveRate = -move/this.scrollLeftRect_.width
     if(index +scrollMoveRate < 0){
       scrollMoveRate = 0
     }
-    if(index + scrollMoveRate +1> this.$children.length){
-      scrollMoveRate = this.$children.length -index -1
+    const items = this.getListItems_()
+    if(index + scrollMoveRate +1> items.length){
+      scrollMoveRate = items.length -index -1
     }
     this.touchmoveSpeed_ = (currentScreenX - this.touchmoveScreenX_) / (time - this.touchmoveTime_)
     this.touchmoveScreenX_ = currentScreenX
     this.touchmoveTime_ = time
     this.scrollAreaRef_.scrollLeft = this.touchStartScrollLeft_ - move
-
+    this.updateScrollAreaHeight_()
     this.$emit('update:scrollMoveRate',scrollMoveRate)
     this.$emit('update:scrollState',{
       from:'horizontal-list',
@@ -197,13 +201,7 @@ export default class VtHorizontalList extends Vue{
       event.preventDefault()
     }
     const prevScrollLeft = this.scrollAreaRef_.scrollLeft
-    const {left} = this.scrollAreaRef_.getBoundingClientRect()
-    const rects = this.$children
-      .map(x=>x.$el.getBoundingClientRect())
-      .map(x=>({
-        left:x.left - left + prevScrollLeft,
-        width:x.width,
-      }))
+    const rects = this.getItemRects_()
     const v = this.touchmoveSpeed_
     const innerWidth = this.scrollAreaRef_.getBoundingClientRect().width
     const rectWidth = rects[0].width
@@ -239,16 +237,17 @@ export default class VtHorizontalList extends Vue{
         break
       }
     }
+    this.updateScrollAreaHeight_()
     this.touchmoving_ = false
   }
   async scrollLeftToItemIndex(index:number,transition:boolean = true){
     const prevScrollLeft = this.scrollAreaRef_.scrollLeft
     const {left} = this.scrollAreaRef_.getBoundingClientRect()
-    const child = this.$children[index]
+    const child = this.getListItems_()[index]
     if(child === undefined){
       throw new Error(`vt-horizontal-list index:${index} child is undefined`)
     }
-    const childRect = child.$el.getBoundingClientRect()
+    const childRect = child.getBoundingClientRect()
     const rect = {
       left:childRect.left - left + prevScrollLeft,
       width:childRect.width,
@@ -305,12 +304,64 @@ export default class VtHorizontalList extends Vue{
     this.touchEndItem_(e)
     this.isMouseDown_ = false
   }
+  getListItems_():HTMLElement[]{
+    return this.$children
+      .filter(x=>x.$el.classList.contains('vt-horizontal-list-item'))
+      .map(x=>x.$el as HTMLElement)
+  }
+  getItemRects_():{left:number,width:number,outerHeight:number}[]{
+    const prevScrollLeft = this.scrollAreaRef_.scrollLeft
+    const {left} = this.scrollAreaRef_.getBoundingClientRect()
+
+    return this.getListItems_()
+      .map(x=>{
+        const boundingRect = x.getBoundingClientRect()
+        const {marginTop,marginRight,marginBottom,marginLeft} = window.getComputedStyle(x)
+        const mtop = marginTop === null ? 0 : Number.parseFloat(marginTop)
+        const mbottom = marginBottom === null? 0 : Number.parseFloat(marginBottom)
+        return {
+          left:boundingRect.left - left + prevScrollLeft,
+          width:boundingRect.width,
+          outerHeight:x.offsetHeight + mtop + mbottom,
+          // offsetWidth:x.offsetWidth,
+          // offsetHeight:x.offsetHeight,
+          // height:boundingRect.height,
+        }
+      })
+      // x.getBoundingClientRect())
+      // .map(x=>({
+
+    // }))
+  }
+  getItemMaxHeight_():number{
+    const scrollLeft = this.scrollAreaRef_.scrollLeft
+    const scrollAreaRect = this.scrollAreaRef_.getBoundingClientRect()
+    const left = scrollAreaRect.left
+    const width = Math.floor(scrollAreaRect.width)
+    const rects = this.getItemRects_().filter(x=>
+      x.left < scrollLeft + width && 
+      scrollLeft < x.left + Math.floor(x.width))
+    // console.log('getItemMaxHeight rect.lenth',rects.map(x=>{
+    //   return `left:${x.left}, right:${x.left+x.width}, scrollLeft:${scrollLeft}, scrollRight:${scrollLeft+width}`
+    // }))
+    const height= rects.reduce((prev,c)=>Math.max(prev,c.outerHeight),0)
+    return height
+  }
+  updateScrollAreaHeight_(){
+    if(!this.fitDisplayedContentsHeight){return}
+    const el = this.scrollAreaRef_
+    const scrollBarHeight = el.offsetHeight - el.clientHeight
+    const height = this.getItemMaxHeight_() + scrollBarHeight
+    this.height_ = height
+  }
+  
   mounted(){
     window.addEventListener('mouseup',this.mouseupWindow_)
     const el = this.$el as HTMLElement
     el.addEventListener('touchstart',this.touchstart_,{passive:false})
     el.addEventListener('touchmove',this.touchmove_,{passive:false})
     el.addEventListener('touchend',this.touchendListener_,{passive:false})
+    this.updateScrollAreaHeight_()
   }
   beforeDestroy(){
     window.removeEventListener('mouseup',this.mouseupWindow_)
