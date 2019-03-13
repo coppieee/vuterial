@@ -37,10 +37,10 @@
     <mdc-subtitle1>item height random fit-displayed-contents-height</mdc-subtitle1>
     <vt-horizontal-list class="doc-contents" fit-displayed-contents-height>
       <vt-horizontal-list-item v-for="id in times_(10)" :key="id" class="doc-h-list-item doc-h-list-item-100"
-        :style="{height:`${(id+1)*50}px`}"
       >
         <mdc-card class="doc-card doc-card-100" >
           item {{id}}
+          <div v-for="count in times_(id+1)" :key="count"> item{{id}} - {{count}}</div>
         </mdc-card>
       </vt-horizontal-list-item>
     </vt-horizontal-list>
@@ -102,6 +102,30 @@
         </vt-horizontal-list-item>
       </vt-horizontal-list>
     </div>
+
+    <mdc-subtitle1>sync tab :scroll="false</mdc-subtitle1>
+    <div class="doc-contents">
+      <mdc-tab-bar ref="tabBar"
+        :scroll-state.sync="scrollState3"
+        >
+        <mdc-tab active>tab 0</mdc-tab>
+        <mdc-tab>tab 1</mdc-tab>
+        <mdc-tab>tab 2</mdc-tab>
+      </mdc-tab-bar>
+      <vt-horizontal-list class="doc-list" 
+        :scroll-state.sync="scrollState3"
+        :scroll="false"
+        >
+        <vt-horizontal-list-item v-for="id in times_(3)" :key="id" 
+          class="doc-h-list-item doc-h-list-item-100 doc-list-item-vertical-scrollable">
+          <mdc-card class="doc-card doc-card-100 doc-card-h-200px">
+            <div v-for="i in times_(5)" :key="i">
+              iten {{id}} - {{i}}
+            </div>
+          </mdc-card>
+        </vt-horizontal-list-item>
+      </vt-horizontal-list>
+    </div>
   </div>
 </template>
 <style lang="postcss" scoped>
@@ -113,13 +137,13 @@
 
 }
 .doc-h-list-item{
-  height:100px;
+  /* height:100px; */
 }
 .doc-h-list-item-30{
   width:30%;
 }
 .doc-card{
-  height:100%;
+  /* height:100%; */
   background-color: #eee;
 }
 .doc-card-30{
@@ -139,6 +163,13 @@
 .doc-h-list-item-100{
   width:100%;
 }
+.doc-list-item-vertical-scrollable{
+  height:100px;
+  overflow-y:auto;
+}
+.doc-card-h-200px{
+  height:200px;
+}
 </style>
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
@@ -148,6 +179,7 @@ import { ScrollState } from '@/components/vt-horizontal-list'
 export default class HorizontalList extends Vue {
   scrollState:ScrollState = {type:'',from:'',index:0,moveRate:0}
   scrollState2:ScrollState = {type:'',from:'',index:0,moveRate:0}
+  scrollState3:ScrollState = {type:'',from:'',index:0,moveRate:0}
   // activeTabIndex2:number = 0
   clickId:number = -1
   times_(count:number):number[]{

@@ -21,6 +21,7 @@
 .vt-horizontal-list__scroll-area--fit-displayed-contents-height{
   overflow-y:hidden;
   transition:height 0.1s;
+  align-items:flex-start;
 }
 .vt-horizontal-list--moving{
   user-select: none;
@@ -262,6 +263,7 @@ export default class VtHorizontalList extends Vue{
       await new Promise(resolve=>setTimeout(resolve,17))
     }
     this.scrollAreaRef_.scrollLeft = prevScrollLeft + diff
+    this.updateScrollAreaHeight_()
   }
   
   touchstart_(e:TouchEvent){

@@ -41,7 +41,7 @@
 .vt-scrollable{
   height: 100%;
   width:100%;
-  overflow:auto;
+  overflow-y:auto;
 }
 </style>
 <script lang="ts">

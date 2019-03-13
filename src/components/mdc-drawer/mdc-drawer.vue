@@ -123,7 +123,7 @@ export default class MdcDrawer extends Vue{
 }
 .vt-drawer--dismissible{
   height:calc(100% - 64px);
-  position:absolute;
+  position:fixed;
 }
 .vt-drawer--open{
   transform: translateX(0);
