@@ -157,6 +157,7 @@ export default class MdcTopAppBar extends Vue{
     if(this.watchDocumentScrollTop){
       document.addEventListener('scroll',this.onScroll_)
     }
+    this.emitUpdateHeight()
     // document.addEventListener('toucstart',this.onTouchStart_)
     // document.addEventListener('touchmove',this.onTouchMove_)
     // document.addEventListener('touchend',this.onTouchEnd_)
