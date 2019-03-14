@@ -14,6 +14,7 @@ import { mdcImageListComponents } from './mdc-image-list'
 import { mdcRippleComponents } from './mdc-ripple'
 import {vtHorizontalListComponents}from './vt-horizontal-list'
 import { vtAppComponents } from './vt-app'
+export { VtAppState } from './vt-app/vt-app-state'
 export const Vuterial:PluginObject<any> = {
   install(Vue: typeof _Vue, options?: any):void{
     const list = [
