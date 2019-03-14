@@ -1,8 +1,14 @@
 <template>
-  <div :style="fixedAjustStyles">
+  <div class="vt-top-app-bar--fixed-ajust" :style="fixedAjustStyles">
     <slot/>
   </div>
 </template>
+<style lang="postcss" scoped>
+.vt-top-app-bar--fixed-ajust{
+  height:inherit;
+}
+</style>
+
 <script lang="ts">
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 @Component<VtAppTabbed>({})

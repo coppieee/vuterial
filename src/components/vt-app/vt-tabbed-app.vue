@@ -2,9 +2,9 @@
   <div class="vt-tabbed-app">
     <div class="vt-tabbed-app__main-contents">
       <slot name="top-app-bar"/>
-      <div class="vt-tabbed-app--fixed-ajaust" :style="fixedAjaustStyles">
+      <vt-top-app-bar-fixed-ajust :topAppBarHeight="topAppBarHeight">
         <slot name="horizontal-list"/>
-      </div>
+      </vt-top-app-bar-fixed-ajust>
     </div>
     <div class="vt-tabbed-app__modal-darwer">
       <slot name="drawer"/>
