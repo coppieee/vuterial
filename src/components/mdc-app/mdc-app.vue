@@ -12,7 +12,7 @@
   </div>
   <div class="vt-app" v-else>
     <slot name="top-app-bar"/>
-    <div class="mdc-top-app-bar--fixed-adjust" key="mdc-top-app-bar--fixed-adjust"></div>
+    <div class="mdc-top-app-bar--fixed-adjust"></div>
     <div class="vt-main-container">
       <slot name="drawer"/>
       <div class="vt-scrollable">
@@ -64,7 +64,6 @@ export default class MdcApp extends Vue{
     super()
   }
   mounted(){
-    this.breakPoints 
     this.breakPoints.init()
   }
   beforeDestroy(){

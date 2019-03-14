@@ -12,11 +12,13 @@
 <style lang="postcss" scoped>
 .vt-horizontal-list{
   position:relative;
+  height:100%;
 }
 .vt-horizontal-list__scroll-area{
   overflow-x:auto;
   display: flex;
   flex-direction: row;
+  height:inherit;
 }
 .vt-horizontal-list__scroll-area--fit-displayed-contents-height{
   overflow-y:hidden;
@@ -104,7 +106,7 @@ export default class VtHorizontalList extends Vue{
   }
   get styles_(){
     return {
-      height:this.height_==-1?'auto':this.height_ + 'px',
+      height:this.height_==-1?'inherit':this.height_ + 'px',
     }
   }
   height_:number = -1

@@ -28,7 +28,6 @@
           <mdc-list-item>hello</mdc-list-item>
           <mdc-list-item>hello</mdc-list-item>
           <mdc-list-item>hello</mdc-list-item>
-          
         </mdc-list>
       </mdc-drawer>
     </template>

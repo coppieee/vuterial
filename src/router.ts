@@ -11,6 +11,7 @@ import Tab from './views/tab.vue'
 import Typography from './views/typography.vue'
 import Ripple from './views/ripple.vue'
 import HorizontalList from './views/horizontal-list.vue'
+import VtApp from './views/vt-app.vue'
 import { Component } from '@vue/test-utils'
 Vue.use(Router)
 interface Config{
@@ -34,6 +35,7 @@ const configs:Config[] = [
   },
   {
     components:[
+      ['vt-app',VtApp,{icon:'app'}],
       ['button',Button,{icon:'touch_app'}],
       ['card',Card,{icon:'crop_din'}],
       ['chip',Chip,{icon:'bookmark'}],

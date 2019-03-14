@@ -13,6 +13,7 @@ import { mdcButtonComponents } from './mdc-button'
 import { mdcImageListComponents } from './mdc-image-list'
 import { mdcRippleComponents } from './mdc-ripple'
 import {vtHorizontalListComponents}from './vt-horizontal-list'
+import { vtAppComponents } from './vt-app'
 export const Vuterial:PluginObject<any> = {
   install(Vue: typeof _Vue, options?: any):void{
     const list = [
@@ -29,6 +30,7 @@ export const Vuterial:PluginObject<any> = {
       mdcImageListComponents,
       mdcRippleComponents,
       vtHorizontalListComponents,
+      vtAppComponents,
     ]
 
     for(const cs of list){
