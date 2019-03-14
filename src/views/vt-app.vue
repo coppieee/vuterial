@@ -40,6 +40,32 @@
         </mdc-drawer>
       </template>
     </vt-tabbed-app-template>
+    <br/>
+    <vt-tabbed-app :state="state2" class="doc-vt-app__app-tabbed"
+      @clickLeftAction="state2.drawerOpen = !state2.drawerOpen">
+      <template #title>
+        hello
+      </template>
+      <template #tab-bar>
+        <mdc-tab raised v-for="i in 3" :key="i">tab{{i}}</mdc-tab>
+      </template>
+      <template #horizontal-list>
+        <vt-horizontal-list-item 
+          y-scroll
+          @update:scrollTop="state2.scrollTop = $event"
+          v-for="i in 3" :key="i">
+          <mdc-card>
+            <div v-for="i in 30" :key="i">card{{i}}</div>
+          </mdc-card>
+        </vt-horizontal-list-item>
+      </template>
+      <template #drawer>
+        <mdc-list tag="nav">
+          <mdc-list-item activated>hello</mdc-list-item>
+          <mdc-list-item>hello</mdc-list-item>
+        </mdc-list>
+      </template>
+    </vt-tabbed-app>
   </div>
 </template>
 <style lang="postcss" scoped>
@@ -48,14 +74,14 @@
   overflow:hidden;
   height:400px;
 }
-.doc-vt-app >>> .vt-app-tabbled__main-contents{
+/* .doc-vt-app >>> .vt-app-tabbled__main-contents{
   position: relative;
-}
-.doc-vt-app .doc-top-app-bar{
+} */
+/* .doc-vt-app .doc-top-app-bar{
   position: absolute;
   left: 0;
   right: 0;
-}
+} */
 .doc-vt-app__h-list-item{
   width:100%;
 }
@@ -69,6 +95,7 @@ export default class VtApp extends Vue{
   scrollTop:number = 0
   topAppBarHeight:number = 0
   state:VtAppState = new VtAppState()
+  state2:VtAppState = new VtAppState()
   onUpdateTopAppBarHeight_(height:number){
     this.topAppBarHeight = height
     // console.log('ONUPDATE TOPPAPPBARHEIGHT',height)

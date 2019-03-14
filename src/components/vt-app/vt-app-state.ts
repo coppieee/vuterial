@@ -2,7 +2,9 @@ import { DrawerType } from '../mdc-drawer'
 import { ScrollState } from '../vt-horizontal-list'
 
 export class VtAppState{
-  drawer:VtDrawerState = new VtDrawerState()
+  // drawer:VtDrawerState = new VtDrawerState()
+  drawerOpen:boolean = false
+  drawerType:DrawerType | 'auto' = 'auto'
   topAppBarHeight:number = 0
   scrollTop:number = 0
   hScroll:ScrollState = {

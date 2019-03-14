@@ -30,7 +30,9 @@
 </template>
 <style lang="postcss" scoped>
 .vt-top-app-bar{
-  position: fixed;
+  position: absolute;
+  left: 0;
+  right:0;
 }
 .vt-top-app-bar--animating{
   transition: transform 0.2s;
