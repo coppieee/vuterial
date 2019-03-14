@@ -1,13 +1,10 @@
 <template>
   <mdc-app :drawerType="drawerType">
     <template #top-app-bar>
-      <mdc-top-app-bar>
-        <mdc-top-app-bar-section align-start>
-          <mdc-top-app-bar-action-item @click.native="drawerOpen = !drawerOpen">menu</mdc-top-app-bar-action-item>
-          <mdc-top-app-bar-title>Vuterial</mdc-top-app-bar-title>
-        </mdc-top-app-bar-section>
-        <mdc-top-app-bar-section align-end role="toolbar">
-        </mdc-top-app-bar-section>
+      <mdc-top-app-bar leftActionIcon="menu" @clickLeftAction="drawerOpen =! drawerOpen">
+        <template #title>
+          Vuterial
+        </template>
       </mdc-top-app-bar>
     </template>
     <template #drawer>

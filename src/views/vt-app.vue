@@ -1,21 +1,20 @@
 <template>
   <div class="doc-vt-app">
-    <vt-tabbed-app class="doc-vt-app__app-tabbed"
+    <vt-tabbed-app-template class="doc-vt-app__app-tabbed"
       :top-app-bar-height="state.topAppBarHeight">
       <template #top-app-bar>
         <mdc-top-app-bar class="doc-top-app-bar"
           :watch-document-scroll-top="false"
           :scroll-top="state.scrollTop"
-          @update:height="state.topAppBarHeight = $event">
-          <mdc-top-app-bar-section align-start>
-            <mdc-top-app-bar-action-item >menu</mdc-top-app-bar-action-item>
-            <mdc-top-app-bar-title>vt-app-tabbed</mdc-top-app-bar-title>
-          </mdc-top-app-bar-section>
-          <mdc-top-app-bar-section align-end role="toolbar">
-          </mdc-top-app-bar-section>
+          @update:height="state.topAppBarHeight = $event"
+          :h-scroll.sync="state.hScroll"
+          leftActionIcon="menu">
+          <template #title>
+            vt-tabbed-app
+          </template>
           <template #tab-bar>
             <mdc-tab-bar :scroll-state.sync="state.hScroll">
-              <mdc-tab raised>tab0</mdc-tab>
+              <mdc-tab raised active>tab0</mdc-tab>
               <mdc-tab raised>tab1</mdc-tab>
               <mdc-tab raised>tab2</mdc-tab>
             </mdc-tab-bar>
@@ -40,7 +39,7 @@
         <mdc-drawer>
         </mdc-drawer>
       </template>
-    </vt-tabbed-app>
+    </vt-tabbed-app-template>
   </div>
 </template>
 <style lang="postcss" scoped>

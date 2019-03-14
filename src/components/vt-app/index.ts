@@ -1,4 +1,4 @@
-import vtTabbedApp from './vt-tabbed-app.vue'
+import vtTabbedAppTemplate from './vt-tabbed-app-template.vue'
 export const vtAppComponents = {
-  vtTabbedApp,
+  vtTabbedAppTemplate,
 }

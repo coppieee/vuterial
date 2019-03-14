@@ -11,13 +11,9 @@
 import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({})
 export default class MdcTopAppBarSection extends Vue{
-  @Prop({default:'header'})
-  tag!:string
+  // @Prop({default:'header'}) tag!:string
 
-  @Prop({type:Boolean,default:false})
-  alignStart!:boolean
-
-  @Prop({type:Boolean,default:false})
-  alignEnd!:boolean
+  @Prop({type:Boolean,default:false}) alignStart!:boolean
+  @Prop({type:Boolean,default:false}) alignEnd!:boolean
 }
 </script>
