@@ -46,7 +46,7 @@
 </style>
 <script lang="ts">
 import {DrawerType} from '../mdc-drawer/'
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import {  DrawerBreakPoints } from '@/components/mdc-drawer/drawer-break-points'
 @Component({})
 export default class MdcApp extends Vue{

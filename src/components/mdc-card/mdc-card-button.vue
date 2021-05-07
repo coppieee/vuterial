@@ -1,5 +1,4 @@
 <script lang="ts">
-import Vue from 'vue'
 import mdcButton from '../mdc-button/mdc-button.vue'
 export default class MdcCardButton extends mdcButton{
   get cssClass(){

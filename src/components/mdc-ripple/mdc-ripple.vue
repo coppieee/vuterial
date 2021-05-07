@@ -4,7 +4,7 @@
   </component>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Watch, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
 import {MDCRipple} from '@material/ripple'
 @Component({})
 export default class MdcRipple extends Vue{

@@ -18,7 +18,7 @@
   </component>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({})
 export default class MdcList extends Vue{
   @Prop({type:Boolean,default:false}) areaSelected!:boolean

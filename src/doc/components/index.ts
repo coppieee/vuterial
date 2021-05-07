@@ -1,5 +1,5 @@
 import { PluginObject} from 'vue'
-import { Component, Prop, Vue as _Vue } from 'vue-property-decorator'
+import { Vue as _Vue } from 'vue-property-decorator'
 import docContents from './doc-contents.vue'
 import docH1 from './doc-h1.vue'
 import docH2 from './doc-h2.vue'

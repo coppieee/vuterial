@@ -18,8 +18,7 @@
 }
 </style>
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
-import { VtAppState} from './vt-app-state'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component<VtTabbedApp>({})
 export default class VtTabbedApp extends Vue{
   @Prop({default:112,type:Number}) topAppBarHeight!:number

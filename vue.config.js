@@ -13,7 +13,9 @@ module.exports = {
   css: {
     loaderOptions: {
       sass: {
-        includePaths: ['node_modules'],
+        sassOptions:{
+          includePaths: ['node_modules'],
+        },
       },
     },
   },

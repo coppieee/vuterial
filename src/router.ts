@@ -1,4 +1,4 @@
-import Vue, { VueConstructor } from 'vue'
+import Vue from 'vue'
 import Router, { RouteConfig } from 'vue-router'
 import Button from './views/button.vue'
 import Card from './views/card.vue'
@@ -12,7 +12,7 @@ import Typography from './views/typography.vue'
 import Ripple from './views/ripple.vue'
 import HorizontalList from './views/horizontal-list.vue'
 import VtApp from './views/vt-app.vue'
-import { Component } from '@vue/test-utils'
+
 Vue.use(Router)
 interface Config{
   components:ComponentConfig[]
@@ -24,7 +24,6 @@ interface ConfigOption{
   path?:string
   link?:string
 }
-const x = [{Home}]
 const configs:Config[] = [
   {
     components:[

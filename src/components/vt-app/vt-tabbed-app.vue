@@ -44,7 +44,7 @@
 }
 </style>
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 import { VtAppState} from './vt-app-state'
 @Component<VtTabbedApp>({})
 export default class VtTabbedApp extends Vue{

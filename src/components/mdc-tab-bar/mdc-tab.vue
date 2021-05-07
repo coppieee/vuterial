@@ -27,7 +27,6 @@
 import { Component, Vue,Prop,Watch } from 'vue-property-decorator'
 import {MDCTab, MDCTabFoundation, MDCTabAdapter} from '@material/tab/index'
 import MdcTabIndicator from '@/components/mdc-tab-bar/mdc-tab-indicator.vue'
-import { MDCTabIndicator } from '@material/tab-indicator/index'
 import { MDCTabIndicatorFactory } from '@material/tab-indicator/index'
 @Component({})
 export default class MdcTabbar extends Vue{
@@ -50,7 +49,7 @@ export default class MdcTabbar extends Vue{
    */
   createMdcTab(el:Element){
     const defaultAdapterMapper:MDCTabAdapter = {} as MDCTabAdapter
-    for(const [name,value] of Object.entries(MDCTabFoundation.defaultAdapter)){
+    for(const [name] of Object.entries(MDCTabFoundation.defaultAdapter)){
       (defaultAdapterMapper as any)[name] =
         (...args:any[]):any=>(defaultAdapter as any)[name](...args)
     }

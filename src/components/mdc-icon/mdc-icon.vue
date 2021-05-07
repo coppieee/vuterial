@@ -4,7 +4,7 @@
   </component>
 </template>
 <script lang="ts">
-import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
+import { Component, Prop, Vue } from 'vue-property-decorator'
 @Component({})
 export default class MdcIcon extends Vue{
   @Prop({default:'i'}) tag!:string

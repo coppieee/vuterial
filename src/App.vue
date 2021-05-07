@@ -74,9 +74,8 @@ button{
 </style>
 <script lang="ts">
 
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Vue } from 'vue-property-decorator'
 import {routeConfigs} from '@/router'
-import { DrawerType } from '@/components/mdc-drawer'
 import MdcDrawer from '@/components/mdc-drawer/mdc-drawer.vue'
 @Component({})
 export default class App extends Vue {

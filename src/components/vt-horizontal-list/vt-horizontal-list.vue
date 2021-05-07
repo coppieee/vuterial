@@ -320,7 +320,7 @@ export default class VtHorizontalList extends Vue{
     return this.getListItems_()
       .map(x=>{
         const boundingRect = x.getBoundingClientRect()
-        const {marginTop,marginRight,marginBottom,marginLeft} = window.getComputedStyle(x)
+        const {marginTop,marginBottom} = window.getComputedStyle(x)
         const mtop = marginTop === null ? 0 : Number.parseFloat(marginTop)
         const mbottom = marginBottom === null? 0 : Number.parseFloat(marginBottom)
         return {
@@ -340,7 +340,7 @@ export default class VtHorizontalList extends Vue{
   getItemMaxHeight_():number{
     const scrollLeft = this.scrollAreaRef_.scrollLeft
     const scrollAreaRect = this.scrollAreaRef_.getBoundingClientRect()
-    const left = scrollAreaRect.left
+    // const left = scrollAreaRect.left
     const width = Math.floor(scrollAreaRect.width)
     const rects = this.getItemRects_().filter(x=>
       x.left < scrollLeft + width && 

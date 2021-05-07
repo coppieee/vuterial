@@ -12,8 +12,8 @@
 </style>
 
 <script lang="ts">
-import { Component, Vue,Prop,Watch } from 'vue-property-decorator'
-import {MDCTabIndicator,MDCTabIndicatorFoundation,MDCSlidingTabIndicatorFoundation, MDCTabIndicatorAdapter} from '@material/tab-indicator/index'
+import { Component, Vue,Prop } from 'vue-property-decorator'
+import {MDCTabIndicator,MDCTabIndicatorFoundation, MDCTabIndicatorAdapter} from '@material/tab-indicator/index'
 import {VuterialSlidingTabIndicatorFoundation} from './vuterial-sliding-tab-indicator-foundation'
 @Component({})
 export default class MdcTabIndicator extends Vue{
@@ -44,7 +44,7 @@ export default class MdcTabIndicator extends Vue{
   }
   createTabIndicator(el:Element):MDCTabIndicator{
     const defaultAdapterMapper:Partial<MDCTabIndicatorAdapter> = {}
-    for(const [key,value] of Object.entries(MDCTabIndicatorFoundation.defaultAdapter)){
+    for(const [key] of Object.entries(MDCTabIndicatorFoundation.defaultAdapter)){
       (defaultAdapterMapper as any)[key] = (...args:any[]) => defaultAdapter[key](...args)
     }
     const adapter:Partial<MDCTabIndicatorAdapter> = {

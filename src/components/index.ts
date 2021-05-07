@@ -1,5 +1,5 @@
 import { PluginObject} from 'vue'
-import { Component, Prop, Vue as _Vue } from 'vue-property-decorator'
+import { Vue as _Vue } from 'vue-property-decorator'
 import {mdcTopAppBarComponents} from '@/components/mdc-top-app-bar'
 import { mdcListComponents } from './mdc-list'
 import { mdcDrawerComponents } from './mdc-drawer'

@@ -15,7 +15,7 @@
 <script lang="ts">
 import { Component, Vue,Prop,Watch } from 'vue-property-decorator'
 import {MDCTabBar, MDCTabBarFoundation, MDCTabBarAdapter} from '@material/tab-bar'
-import {MDCTab, MDCTabFoundation} from '@material/tab/index'
+import {MDCTab} from '@material/tab/index'
 import {VuterialTabBarFoundation} from './vuterial-tab-bar-foundation'
 import MdcTab from './mdc-tab.vue'
 import {ScrollState} from '@/components/vt-horizontal-list/'

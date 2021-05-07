@@ -43,9 +43,8 @@
 </style>
 
 <script lang="ts">
-import { Component, Prop, Vue ,Watch, Emit } from 'vue-property-decorator'
+import { Component, Prop, Vue ,Watch } from 'vue-property-decorator'
 import { VtAppState } from '@/components/vt-app/vt-app-state'
-import { ScrollState } from '@/components/vt-horizontal-list'
 @Component<MdcTopAppBar>({})
 export default class MdcTopAppBar extends Vue{
   @Prop({default:'header'}) tag!:string
@@ -113,7 +112,7 @@ export default class MdcTopAppBar extends Vue{
     },220)
   }
   async scrollEnd_(){
-    const scrollTop = this.getScrollTop_()
+    // const scrollTop = this.getScrollTop_()
     const height = this.topAppBarRow_.clientHeight
     this.animating_ = true
     await this.$nextTick()
